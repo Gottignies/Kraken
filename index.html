@@ -1,0 +1,1528 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<title>La Sennette — N° 5' · 08 juin 1908 — À la poursuite du Kraken</title>
+<meta name="viewport" content="width=1280" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&family=Special+Elite&family=UnifrakturMaguntia&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#0a0f1e;
+    --paper:#eee2c4;
+    --paper-2:#e4d4ad;
+    --paper-deep:#cdb886;
+    --paper-shade:#c9b787;
+    --sepia:#8a6a3a;
+    --sepia-deep:#5a4322;
+    --amber:#c89858;
+    --rust:#8a3a1c;
+    --rule:#2a2218;
+    --rule-soft:rgba(42,34,24,.32);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:#0a0f1e;
+    color:#eee2c4;
+    font-family:'Cormorant Garamond',Georgia,serif;
+    font-size:17.5px;
+    line-height:1.55;
+    overflow-x:hidden;
+  }
+
+  /* ============ TEXTURES ============ */
+  .paper{
+    background-color:var(--paper);
+    background-image:
+      radial-gradient(ellipse 1200px 600px at 20% 10%, rgba(138,106,58,.10), transparent 60%),
+      radial-gradient(ellipse 900px 500px at 90% 90%, rgba(90,67,34,.14), transparent 60%),
+      radial-gradient(ellipse 600px 400px at 50% 50%, rgba(120,90,40,.06), transparent 70%),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='280'><filter id='n'><feTurbulence baseFrequency='0.85' numOctaves='2' seed='4'/><feColorMatrix values='0 0 0 0 0.36  0 0 0 0 0.26  0 0 0 0 0.13  0 0 0 0.09 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    color:var(--ink);
+  }
+  .paper-edge{
+    box-shadow:
+      inset 0 0 80px rgba(90,67,34,.30),
+      inset 0 0 200px rgba(40,28,12,.18),
+      0 40px 100px rgba(0,0,0,.55);
+  }
+  .water{
+    background:
+      radial-gradient(ellipse 1400px 700px at 50% -10%, rgba(40,80,140,.30), transparent 60%),
+      radial-gradient(ellipse 1200px 800px at 50% 110%, rgba(8,12,24,.95), transparent 70%),
+      linear-gradient(180deg,#0a1830 0%,#08111f 35%,#050912 70%,#020409 100%);
+  }
+
+  /* ============ TYPE ============ */
+  .masthead-font{font-family:'UnifrakturMaguntia','IM Fell English SC',serif}
+  .display{font-family:'Playfair Display',serif;font-weight:900;letter-spacing:-.01em;line-height:.95}
+  .smallcaps{font-variant:small-caps;letter-spacing:.08em}
+  .hand{font-family:'Special Elite','Courier New',monospace}
+  .mono{font-family:'JetBrains Mono',monospace}
+
+  /* ============ HERO (OUVERTURE) ============ */
+  #hero{
+    height:100vh;min-height:780px;
+    display:flex;flex-direction:column;
+    position:relative;overflow:hidden;
+  }
+  .hero-surface{
+    position:absolute;inset:0;z-index:0;
+    background:
+      radial-gradient(ellipse 1400px 600px at 50% 0%, rgba(60,110,180,.55), transparent 55%),
+      radial-gradient(ellipse 800px 400px at 50% -5%, rgba(180,200,220,.18), transparent 60%),
+      linear-gradient(180deg,#1a2f50 0%,#0e1a30 25%,#070d1a 60%,#02050d 100%);
+  }
+  .hero-shimmer{
+    position:absolute;top:0;left:0;right:0;height:50%;z-index:1;
+    background:
+      repeating-linear-gradient(95deg,transparent 0 30px,rgba(200,220,240,.04) 30px 32px,transparent 32px 80px,rgba(200,220,240,.06) 80px 82px),
+      repeating-linear-gradient(85deg,transparent 0 50px,rgba(200,220,240,.03) 50px 51px);
+    mix-blend-mode:screen;
+    animation:shimmer 22s linear infinite;
+  }
+  @keyframes shimmer{from{transform:translateX(0)}to{transform:translateX(-160px)}}
+  .bubbles{position:absolute;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+  .bubble{
+    position:absolute;bottom:-30px;border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, rgba(220,235,255,.7), rgba(180,210,240,.18) 50%, transparent 70%);
+    box-shadow:inset 0 0 4px rgba(255,255,255,.4);
+    animation:rise linear infinite;
+  }
+  @keyframes rise{
+    0%{transform:translateY(0) translateX(0);opacity:0}
+    10%{opacity:.7}90%{opacity:.5}
+    100%{transform:translateY(-110vh) translateX(var(--drift,20px));opacity:0}
+  }
+  .hero-silhouette{
+    position:absolute;bottom:-40px;left:50%;transform:translateX(-50%);
+    width:1000px;height:340px;opacity:.20;z-index:1;
+    filter:blur(2px);pointer-events:none;
+  }
+  .hero-masthead{
+    position:relative;z-index:3;padding:2.2rem 3rem 1.5rem;
+    color:#dcd0b0;
+  }
+  .hero-masthead-row{
+    display:flex;justify-content:space-between;align-items:baseline;
+    font-family:'IM Fell English SC',serif;
+    font-size:14px;letter-spacing:.18em;
+    color:rgba(220,208,176,.7);
+    border-bottom:1px solid rgba(220,208,176,.25);padding-bottom:.8rem;
+  }
+  .hero-title-wrap{
+    position:relative;z-index:3;flex:1;
+    display:flex;flex-direction:column;justify-content:center;align-items:center;
+    text-align:center;padding:0 3rem;
+  }
+  .hero-overline{
+    font-family:'IM Fell English SC',serif;
+    letter-spacing:.4em;font-size:13px;
+    color:rgba(220,208,176,.55);margin-bottom:1.4rem;
+  }
+  .hero-title{
+    font-family:'Playfair Display',serif;font-style:italic;font-weight:900;
+    font-size:clamp(70px,11vw,168px);line-height:.88;
+    color:#e8dab0;
+    text-shadow:0 4px 30px rgba(0,0,0,.6),0 1px 0 rgba(255,255,255,.06);
+    letter-spacing:-.015em;margin:0;
+  }
+  .hero-title .ornament{
+    display:inline-block;font-style:normal;color:var(--amber);
+    font-size:.5em;transform:translateY(-.4em);margin:0 .3em;font-family:serif;
+  }
+  .hero-subtitle{
+    margin-top:1.8rem;font-style:italic;font-weight:500;
+    font-size:23px;color:rgba(220,208,176,.82);
+    max-width:700px;line-height:1.4;
+  }
+  .hero-meta{
+    margin-top:1.2rem;font-family:'IM Fell English SC',serif;
+    letter-spacing:.35em;font-size:12px;color:rgba(220,208,176,.5);
+  }
+  .hero-cta{
+    margin:3rem 0 0;display:inline-flex;align-items:center;gap:1.2rem;
+    padding:1rem 2.4rem;border:1px solid rgba(220,180,120,.6);
+    background:rgba(0,0,0,.25);color:#e8dab0;
+    font-family:'IM Fell English SC',serif;letter-spacing:.32em;font-size:14px;
+    text-decoration:none;cursor:pointer;transition:all .5s ease;
+  }
+  .hero-cta::before,.hero-cta::after{
+    content:"";display:block;width:24px;height:1px;background:var(--amber);
+    transition:width .5s ease;
+  }
+  .hero-cta:hover{background:rgba(200,152,88,.18);border-color:var(--amber)}
+  .hero-cta:hover::before,.hero-cta:hover::after{width:40px}
+  .hero-foot{
+    position:relative;z-index:3;padding:1rem 3rem 2rem;
+    display:flex;justify-content:space-between;align-items:center;
+    color:rgba(220,208,176,.45);
+    font-family:'IM Fell English SC',serif;font-size:12px;letter-spacing:.25em;
+  }
+  .scroll-hint{display:flex;flex-direction:column;align-items:center;gap:.6rem;color:rgba(220,208,176,.5)}
+  .scroll-hint .line{
+    width:1px;height:60px;
+    background:linear-gradient(180deg,transparent,var(--amber));
+    animation:drop 2.4s ease-in-out infinite;
+  }
+  @keyframes drop{
+    0%,100%{transform:scaleY(.3);transform-origin:top}
+    50%{transform:scaleY(1);transform-origin:top}
+  }
+
+  /* ============ DIVE TRANSITION ============ */
+  .dive{height:140px;margin:0;position:relative;overflow:hidden;background:linear-gradient(180deg,transparent 0%,#08111f 100%)}
+  .dive.up{background:linear-gradient(180deg,#08111f 0%,transparent 100%)}
+
+  /* ============ FOLIO (NEWSPAPER PAGE) ============ */
+  .folio{
+    padding:5rem 0 5rem;position:relative;
+  }
+  .folio-paper{
+    position:relative;max-width:1240px;margin:0 auto;
+    padding:2.6rem 3rem 3rem;
+    border:1px solid rgba(90,67,34,.35);
+  }
+  .folio-paper::before{
+    content:"";position:absolute;inset:14px;
+    border:1px solid rgba(90,67,34,.16);pointer-events:none;
+  }
+
+  /* MASTHEAD INSIDE FOLIO */
+  .folio-mast-thin{
+    display:flex;justify-content:space-between;
+    font-family:'IM Fell English SC',serif;font-size:12px;
+    letter-spacing:.22em;color:var(--sepia-deep);
+    padding-bottom:.7rem;border-bottom:1px solid var(--rule);
+  }
+  .folio-masthead{
+    text-align:center;padding:1.2rem 0 1.4rem;
+    border-bottom:4px double var(--rule);
+  }
+  .folio-mh-title{
+    font-family:'UnifrakturMaguntia',serif;
+    font-size:clamp(62px,9vw,128px);line-height:.95;
+    color:var(--ink);margin:0;letter-spacing:.01em;
+  }
+  .folio-mh-sub{
+    margin-top:.4rem;font-style:italic;color:var(--sepia-deep);
+    font-size:17px;letter-spacing:.04em;
+  }
+  .folio-mast-bottom{
+    display:flex;justify-content:space-between;align-items:center;
+    font-family:'IM Fell English SC',serif;font-size:11.5px;
+    letter-spacing:.25em;color:var(--sepia-deep);
+    padding:.5rem 0;border-bottom:1px solid var(--rule);
+    margin-bottom:1.6rem;
+  }
+  .folio-mast-bottom .pill{
+    border:1px solid var(--rule);padding:3px 12px;
+    background:rgba(244,232,205,.6);
+  }
+  .section-eyebrow{
+    text-align:center;
+    font-family:'IM Fell English SC',serif;
+    letter-spacing:.35em;font-size:13px;
+    color:var(--sepia-deep);margin:1.5rem 0 1rem;
+  }
+  .folio-foot{
+    margin-top:2.6rem;padding-top:1rem;
+    border-top:3px double var(--rule);
+    display:flex;justify-content:space-between;align-items:center;
+    font-family:'IM Fell English SC',serif;font-size:11.5px;
+    letter-spacing:.25em;color:var(--sepia-deep);
+  }
+  .folio-foot .page-num{
+    font-family:'Playfair Display',serif;font-style:italic;
+    font-weight:900;font-size:28px;letter-spacing:0;color:var(--ink);
+  }
+
+  /* HEADLINES */
+  .h-kicker{
+    font-family:'IM Fell English SC',serif;
+    letter-spacing:.32em;font-size:12.5px;
+    color:var(--sepia-deep);text-align:center;
+    margin:.4rem 0 .5rem;
+  }
+  .h-1{
+    font-family:'Playfair Display',serif;font-weight:900;font-style:italic;
+    font-size:clamp(40px,5.5vw,72px);line-height:.98;
+    color:var(--ink);text-align:center;margin:.2rem auto .6rem;
+    max-width:1000px;letter-spacing:-.005em;
+  }
+  .h-deck{
+    text-align:center;font-style:italic;
+    font-size:20px;color:var(--sepia-deep);
+    max-width:820px;margin:0 auto 1.8rem;line-height:1.45;
+  }
+  .h-deck strong{color:var(--ink);font-style:normal;font-weight:600}
+  .h-2{
+    font-family:'Playfair Display',serif;font-weight:900;font-style:italic;
+    font-size:34px;line-height:1.04;color:var(--ink);
+    margin:1rem 0 .6rem;letter-spacing:-.005em;
+  }
+  .h-3{
+    font-family:'IM Fell English SC',serif;
+    letter-spacing:.25em;font-size:13px;color:var(--sepia-deep);
+    margin:1.4rem 0 .4rem;padding-bottom:.3rem;
+    border-bottom:1px solid var(--rule-soft);
+  }
+
+  /* COLUMNS */
+  .cols-2{column-count:2;column-gap:2rem;column-rule:1px solid rgba(90,67,34,.22)}
+  .cols-3{column-count:3;column-gap:1.6rem;column-rule:1px solid rgba(90,67,34,.22)}
+  .col-block{font-size:16.5px;line-height:1.6;color:#1a1408;text-align:justify;hyphens:auto}
+  .col-block p{margin:0 0 .85em}
+  .col-block p:first-of-type::first-letter{
+    font-family:'Playfair Display',serif;font-weight:900;
+    font-size:5em;float:left;line-height:.85;padding:6px 10px 0 0;
+    color:var(--rust);
+  }
+  .nodrop p:first-of-type::first-letter{
+    font-size:inherit;float:none;padding:0;color:inherit;font-weight:inherit;font-family:inherit;
+  }
+  .pullquote{
+    break-inside:avoid;
+    border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+    padding:.8rem 0;margin:1rem 0;
+    font-style:italic;font-size:19px;color:var(--sepia-deep);text-align:center;
+    line-height:1.4;
+  }
+  .pullquote small{display:block;font-size:13px;letter-spacing:.15em;color:var(--sepia);margin-top:.3rem;text-transform:uppercase;font-style:normal}
+
+  .lead{
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+    font-size:21px;line-height:1.45;color:#1a1408;
+    border-left:3px solid var(--rust);padding-left:1.2rem;
+    margin:1rem 0 1.6rem;
+  }
+
+  /* PLATES (figures) */
+  .plate{
+    break-inside:avoid;
+    border:1px solid rgba(90,67,34,.4);
+    padding:.8rem;background:rgba(244,232,205,.55);
+    margin:0 0 1.2rem;position:relative;
+    box-shadow:inset 0 0 30px rgba(90,67,34,.10);
+  }
+  .plate-frame{
+    width:100%;background:#d8c290;border:1px solid rgba(90,67,34,.35);
+    overflow:hidden;position:relative;
+  }
+  .plate-frame img{
+    display:block;width:100%;height:100%;object-fit:cover;
+    filter:sepia(.15) contrast(1.04) saturate(.92);
+    mix-blend-mode:multiply;
+  }
+  .plate-frame.tone-paper img{mix-blend-mode:multiply;filter:sepia(.18) contrast(1.05) saturate(.85)}
+  .plate-frame.tone-clean img{mix-blend-mode:normal;filter:none}
+  .plate-caption{
+    margin-top:.7rem;text-align:center;font-style:italic;
+    font-size:13.5px;color:var(--sepia-deep);line-height:1.4;
+  }
+  .plate-caption .lbl{
+    display:block;font-family:'IM Fell English SC',serif;
+    letter-spacing:.22em;font-size:10.5px;font-style:normal;
+    color:var(--ink);margin-bottom:.25rem;
+  }
+  .plate.wide{margin:1.4rem 0}
+  .plate.in-column{margin:.4rem 0 1.1rem}
+  .plate-stripe{
+    position:absolute;top:8px;left:8px;
+    font-family:'IM Fell English SC',serif;font-size:10.5px;letter-spacing:.2em;
+    color:var(--sepia-deep);background:rgba(244,232,205,.85);
+    padding:2px 8px;border:1px solid rgba(90,67,34,.4);
+  }
+
+  /* PORTRAITS */
+  .portrait-frame{
+    background:#d8c290;border:1px solid rgba(90,67,34,.4);
+    padding:6px;break-inside:avoid;
+  }
+  .portrait-frame img{
+    display:block;width:100%;
+    filter:sepia(.2) contrast(1.05);
+  }
+  .portrait-caption{
+    font-family:'IM Fell English SC',serif;
+    letter-spacing:.15em;font-size:11px;color:var(--sepia-deep);
+    text-align:center;margin-top:.4rem;
+  }
+
+  /* GRIDS */
+  .grid-12{display:grid;grid-template-columns:7fr 5fr;gap:2rem;align-items:start}
+  .grid-21{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start}
+  .grid-31{display:grid;grid-template-columns:3fr 1fr;gap:2rem;align-items:start}
+  .grid-13{display:grid;grid-template-columns:1fr 3fr;gap:2rem;align-items:start}
+
+  /* LETTER STYLE */
+  .letter-block{
+    background:
+      radial-gradient(ellipse at 0% 0%, rgba(180,140,80,.18), transparent 60%),
+      radial-gradient(ellipse at 100% 100%, rgba(60,40,20,.18), transparent 60%),
+      linear-gradient(180deg,#f0e0b8 0%,#e6d2a2 100%);
+    padding:2rem 2.2rem;
+    box-shadow:inset 0 0 60px rgba(120,80,30,.18),0 8px 20px rgba(0,0,0,.18);
+    position:relative;margin:1rem 0;
+  }
+  .letter-block::before{
+    content:"";position:absolute;inset:0;
+    background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><filter id='n'><feTurbulence baseFrequency='0.8' numOctaves='2' seed='5'/><feColorMatrix values='0 0 0 0 0.36  0 0 0 0 0.26  0 0 0 0 0.13  0 0 0 0.07 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    pointer-events:none;mix-blend-mode:multiply;
+  }
+  .letter-block > *{position:relative}
+  .letter-head{
+    display:flex;justify-content:space-between;
+    border-bottom:1px solid rgba(90,67,34,.4);
+    padding-bottom:.6rem;margin-bottom:1rem;
+    font-family:'IM Fell English SC',serif;font-size:11.5px;letter-spacing:.2em;
+    color:var(--sepia-deep);
+  }
+  .letter-head .name{
+    display:block;font-family:'Playfair Display',serif;font-style:italic;
+    font-size:22px;color:var(--ink);letter-spacing:0;margin-top:.2rem;
+  }
+  .letter-title{
+    font-family:'Playfair Display',serif;font-style:italic;font-weight:700;
+    font-size:26px;line-height:1.1;color:var(--ink);
+    margin:0 0 1rem;
+  }
+  .letter-body{
+    font-family:'Cormorant Garamond',serif;font-style:italic;
+    font-size:16.5px;line-height:1.6;color:#1f1408;
+  }
+  .letter-body p{margin:0 0 .8em}
+  .signature{margin-top:1rem;text-align:right}
+  .signature .sig{
+    font-family:'Special Elite',cursive;font-size:22px;color:#2a1a08;
+    transform:rotate(-3deg);display:inline-block;
+    border-bottom:1px solid rgba(90,67,34,.3);padding:0 .4em .2em;
+  }
+  .signature .sig-meta{
+    display:block;margin-top:.3rem;
+    font-family:'IM Fell English SC',serif;font-size:10.5px;letter-spacing:.2em;
+    color:var(--sepia-deep);
+  }
+  .stamp{
+    position:absolute;top:1.2rem;right:1.2rem;
+    width:80px;height:80px;border:2px solid var(--rust);border-radius:50%;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    color:var(--rust);font-family:'IM Fell English SC',serif;
+    font-size:9.5px;letter-spacing:.18em;
+    transform:rotate(-12deg);opacity:.78;text-align:center;line-height:1.1;
+    background:rgba(180,60,30,.06);
+  }
+  .stamp::after{content:"";position:absolute;inset:6px;border:1px solid var(--rust);border-radius:50%}
+  .stamp em{font-style:normal;font-size:9px;letter-spacing:.1em}
+
+  /* DIALOGUE BOX */
+  .dialogue{
+    background:rgba(244,232,205,.5);
+    border:1px solid var(--rule-soft);
+    padding:1rem 1.2rem;margin:1rem 0;
+    font-size:15.5px;line-height:1.5;
+  }
+  .dialogue .speaker{
+    font-family:'IM Fell English SC',serif;
+    letter-spacing:.15em;font-size:11px;color:var(--sepia-deep);
+    margin-right:.4em;
+  }
+
+  /* BIO CARDS */
+  .bio-card{
+    background:rgba(244,232,205,.45);
+    border:1px solid var(--rule-soft);
+    padding:1.1rem 1.2rem;margin:0 0 1.2rem;
+    break-inside:avoid;
+  }
+  .bio-card h4{
+    font-family:'Playfair Display',serif;font-style:italic;font-weight:900;
+    font-size:24px;margin:.2rem 0 .1rem;color:var(--ink);line-height:1.05;
+  }
+  .bio-card .role{
+    font-family:'IM Fell English SC',serif;font-size:11px;letter-spacing:.25em;
+    color:var(--sepia-deep);margin-bottom:.5rem;
+  }
+  .bio-card .years{
+    font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--sepia-deep);
+    margin-bottom:.5rem;
+  }
+  .bio-card p{margin:.3rem 0;font-size:15px;line-height:1.5;color:#1a1408}
+
+  /* AD / SMALL NOTICES */
+  .notice{
+    border:2px solid var(--rule);
+    padding:1rem;text-align:center;margin:1rem 0;
+    background:rgba(244,232,205,.5);
+    break-inside:avoid;
+  }
+  .notice .label{
+    font-family:'IM Fell English SC',serif;
+    letter-spacing:.3em;font-size:11px;color:var(--sepia-deep);
+    margin-bottom:.3rem;
+  }
+  .notice .name{
+    font-family:'Playfair Display',serif;font-weight:900;font-style:italic;
+    font-size:24px;line-height:1.05;
+  }
+  .notice .body{margin-top:.5rem;font-size:14px;font-style:italic;color:var(--sepia-deep);line-height:1.45}
+
+  /* MARGINALIA / NOTES */
+  .marginalia{
+    font-family:'Special Elite',cursive;font-size:13px;
+    color:var(--rust);line-height:1.4;
+    border-left:1px solid var(--rust);padding:.4rem 0 .4rem .8rem;
+    margin:1rem 0;
+  }
+
+  /* INTERSTITIAL (creature reveal) */
+  .interstitial{
+    position:relative;
+    height:80vh;min-height:560px;
+    display:flex;align-items:center;justify-content:center;
+    background:
+      radial-gradient(ellipse 1200px 700px at 50% 50%, rgba(60,90,140,.35), transparent 60%),
+      linear-gradient(180deg,#020409 0%,#040910 50%,#0a1530 100%);
+    overflow:hidden;
+  }
+  .interstitial .creature{
+    position:absolute;inset:0;
+    background-position:center;background-size:cover;
+    opacity:.85;
+    filter:contrast(1.05) brightness(.92) saturate(.95);
+    mix-blend-mode:screen;
+  }
+  .interstitial::before{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(ellipse 800px 600px at 50% 50%, transparent 0%, rgba(2,4,9,.85) 70%);
+  }
+  .interstitial-content{
+    position:relative;z-index:2;text-align:center;
+    color:#dcd0b0;max-width:780px;padding:0 2rem;
+  }
+  .interstitial-eyebrow{
+    font-family:'IM Fell English SC',serif;
+    letter-spacing:.45em;font-size:13px;
+    color:rgba(200,152,88,.75);margin-bottom:1.5rem;
+  }
+  .interstitial h2{
+    font-family:'Playfair Display',serif;font-style:italic;font-weight:900;
+    font-size:clamp(54px,7.5vw,100px);line-height:.96;
+    color:#e8dab0;margin:0 0 1.4rem;
+  }
+  .interstitial p{
+    font-style:italic;font-size:22px;line-height:1.5;
+    color:rgba(220,208,176,.78);max-width:620px;margin:0 auto;
+  }
+
+  /* EPILOGUE */
+  #epilogue{
+    height:100vh;min-height:760px;
+    position:relative;overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+    background:
+      radial-gradient(ellipse 1200px 700px at 50% 110%, rgba(60,90,140,.35), transparent 60%),
+      radial-gradient(ellipse 800px 500px at 50% 95%, rgba(140,170,210,.18), transparent 70%),
+      linear-gradient(180deg,#020409 0%,#04070f 30%,#070c1c 65%,#0a1430 100%);
+  }
+  .ep-glow{
+    position:absolute;left:50%;bottom:-50%;transform:translateX(-50%);
+    width:1400px;height:1400px;border-radius:50%;
+    background:radial-gradient(circle, rgba(120,170,220,.22) 0%, transparent 65%);
+    animation:pulse 8s ease-in-out infinite;pointer-events:none;
+  }
+  @keyframes pulse{
+    0%,100%{opacity:.5;transform:translate(-50%,0) scale(1)}
+    50%{opacity:1;transform:translate(-50%,-20px) scale(1.04)}
+  }
+  .ep-silhouette{
+    position:absolute;left:50%;bottom:-60px;transform:translateX(-50%);
+    width:1200px;opacity:.32;pointer-events:none;z-index:1;
+    animation:sway 14s ease-in-out infinite;
+  }
+  @keyframes sway{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-18px)}}
+  .ep-content{position:relative;z-index:3;text-align:center;color:#dcd0b0;max-width:820px;padding:0 2rem}
+  .ep-eyebrow{font-family:'IM Fell English SC',serif;letter-spacing:.45em;font-size:13px;color:rgba(200,152,88,.75);margin-bottom:1.5rem}
+  .ep-title{font-family:'Playfair Display',serif;font-style:italic;font-weight:900;font-size:clamp(56px,8vw,110px);line-height:.95;color:#e8dab0;margin:0 0 1.6rem}
+  .ep-text{font-style:italic;font-size:22px;line-height:1.55;color:rgba(220,208,176,.78);max-width:620px;margin:0 auto}
+  .ep-cta{margin-top:3rem;display:inline-flex;align-items:center;gap:1rem;
+    font-family:'IM Fell English SC',serif;letter-spacing:.4em;font-size:13px;
+    color:rgba(200,152,88,.85);text-decoration:none;border-bottom:1px solid rgba(200,152,88,.4);padding-bottom:.4rem}
+  .ep-cta::after{content:"⟶"}
+  .ep-foot{position:absolute;bottom:1.5rem;left:0;right:0;text-align:center;
+    font-family:'IM Fell English SC',serif;font-size:11px;letter-spacing:.3em;
+    color:rgba(220,208,176,.3);z-index:3}
+
+  /* REVEAL ON SCROLL */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity 1s ease, transform 1s ease}
+  .reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     HERO — OUVERTURE
+     ============================================================ -->
+<section id="hero" data-screen-label="00 Ouverture">
+  <div class="hero-surface"></div>
+  <div class="hero-shimmer"></div>
+
+  <svg class="hero-silhouette" viewBox="0 0 1000 340" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g fill="#000" opacity=".88">
+      <ellipse cx="500" cy="80" rx="120" ry="70"/>
+      <path d="M 380 70 Q 500 -20 620 70 Q 500 30 380 70 Z"/>
+      <path d="M 410 130 Q 360 200 280 260 Q 320 220 340 160 Q 380 150 410 130 Z"/>
+      <path d="M 450 145 Q 410 240 320 320 Q 380 280 410 200 Q 440 170 450 145 Z"/>
+      <path d="M 490 150 Q 480 260 440 340 Q 480 280 490 200 Z"/>
+      <path d="M 520 150 Q 530 260 570 340 Q 530 280 520 200 Z"/>
+      <path d="M 550 145 Q 590 240 680 320 Q 620 280 590 200 Q 560 170 550 145 Z"/>
+      <path d="M 590 130 Q 640 200 720 260 Q 680 220 660 160 Q 620 150 590 130 Z"/>
+    </g>
+  </svg>
+
+  <div class="bubbles" id="bubbles-hero"></div>
+
+  <header class="hero-masthead">
+    <div class="hero-masthead-row">
+      <span>VOL. III &nbsp;·&nbsp; N<sup>o</sup> 5'</span>
+      <span style="font-family:'UnifrakturMaguntia',serif;font-size:24px;letter-spacing:.04em;color:#e8dab0">La Sennette</span>
+      <span>ÉCAUSSINNES · HAINAUT</span>
+    </div>
+  </header>
+
+  <div class="hero-title-wrap">
+    <div class="hero-overline">ÉDITION SPÉCIALE · RÉDACTEUR : MAKAEL TIGESTONIG</div>
+    <h1 class="hero-title">À la poursuite<br/><span class="ornament">❦</span>du Kraken<span class="ornament">❦</span></h1>
+    <p class="hero-subtitle">Chronique d'une expédition souterraine dans les carrières d'Écaussinnes — sur les traces de la créature recensée par le baron von Humboldt.</p>
+    <div class="hero-meta">QUATRE SAVANTS · UNE NAPPE PHRÉATIQUE · UN MYSTÈRE</div>
+    <a class="hero-cta" href="#folio-1">OUVRIR LE JOURNAL</a>
+  </div>
+
+  <div class="hero-foot">
+    <span>Lundi 08 juin 1908</span>
+    <div class="scroll-hint"><span>DESCENDRE</span><span class="line"></span></div>
+    <span>Prix : Cinq centimes</span>
+  </div>
+</section>
+
+<div class="dive"></div>
+
+<!-- ============================================================
+     FOLIO 1 — Un peu d'histoire · Rétrospective 1875
+     ============================================================ -->
+<section class="folio paper paper-edge" id="folio-1" data-screen-label="Folio 01 — Rétrospective 1875">
+  <div class="folio-paper">
+
+    <div class="folio-mast-thin">
+      <span>VOL. III · N° 5'</span>
+      <span>FEUILLE HEBDOMADAIRE — ÉCAUSSINNES-LALAING</span>
+      <span>LUNDI 08 JUIN 1908</span>
+    </div>
+    <header class="folio-masthead">
+      <h1 class="folio-mh-title masthead-font">La Sennette</h1>
+      <p class="folio-mh-sub">Édition spéciale — Numéro 5' · Rédacteur&nbsp;: Makael Tigestonig</p>
+    </header>
+    <div class="folio-mast-bottom">
+      <span class="pill">UN PEU D'HISTOIRE</span>
+      <span>RÉTROSPECTIVE — 1875</span>
+      <span class="pill">PAGE I</span>
+    </div>
+
+    <p class="h-kicker">EXPÉDITION SCIENTIFIQUE AUX CARRIÈRES D'ÉCAUSSINNES</p>
+    <h2 class="h-1 reveal">« I l'a éne saké là padzou&nbsp;»</h2>
+    <p class="h-deck reveal">Littéralement&nbsp;: <em>il y a quelque chose là-dessous</em>. <strong>Quatre savants</strong>, une nappe phréatique, et la créature recensée par le baron Alexander von Humboldt.</p>
+
+    <div class="grid-12 reveal" style="margin-top:1.4rem">
+      <div class="cols-2 col-block">
+        <p>Dans la tranquille bourgade d'Écaussinnes, la maison du régisseur de la carrière de Scoufflény, adossée à l'habitation du ptit François le fils du gardien, semblait trôner sous le ciel gris de Belgique. Mais derrière ses murs épais, une effervescence inhabituelle régnait. Quatre hommes, chacun maître dans son domaine, se rassemblèrent pour une mission extraordinaire.</p>
+
+        <p>Édouard Alfred Martel, un spéléologue audacieux ; Louis Denayrouze, le frère d'Auguste, l'ingénieur en plongée sous-marine ; Louis Rouquayrol, le frère de Benoît, ingénieur visionnaire ; et Ernst Haeckel, biologiste et écologiste renommé, formèrent cette équipe hétéroclite. Leur objectif&nbsp;: explorer les profondeurs mystérieuses de la nappe phréatique de Scoufflény, où une créature inconnue fut recensée selon les dires d'Alexander von Humboldt.</p>
+
+        <p>Ce soir-là, la petite salle au sol de pierre bleu du rez-de-chaussée fut transformée en un laboratoire d'exploration. Plans de la carrière, croquis de prototypes de scaphandres, et notes écologiques jonchaient la grande table en chêne. Les discussions allèrent bon train, entre théories scientifiques et préparatifs techniques.</p>
+
+        <p>Haeckel, les yeux brillants d'intérêt, déploya ses théories sur la possible origine de la créature, évoquant des espèces préhistoriques et l'impact de l'extraction minière sur l'écosystème local. Pendant ce temps, Martel et Denayrouze ajustèrent leurs équipements de plongée, conçus pour résister aux conditions extrêmes des profondeurs.</p>
+
+        <p class="pullquote">« Une nappe phréatique est une couche d'eau souterraine proche de la surface ; un aquifère, lui, est un ensemble de roches ou de sédiments qui stocke et transmet l'eau. »<small>— L. Denayrouze, soir du 7 juin</small></p>
+
+        <p>Denayrouze, tout en ajustant le curseur de son détendeur haute pression, expliqua la différence entre une nappe phréatique et un aquifère. Rouquayrol, quant à lui, vérifia les systèmes de sécurité et de communication. Ils savaient tous que leur entreprise n'était pas sans risque. Mais l'appel de l'inconnu et la soif de découverte furent plus forts que tout.</p>
+
+        <p>Le lendemain, alors que les premières lueurs de l'aube éclairaient la ruelle pavée de la maison en L, les quatre explorateurs, chargés de leur équipement, s'avancèrent et montèrent dans un des chariots servant à la dépose des mineurs dans la carrière, tracté par la Julie, la belle jument brabançonne.</p>
+
+        <div class="dialogue">
+          <p><span class="speaker">MARTEL —</span> C'est un sacré défi que nous avons devant nous, n'est-ce pas&nbsp;? J'espère que nous ne nous mettons pas trop <em>Martel</em> en tête avec cette expédition.</p>
+          <p><span class="speaker">LE COCHER —</span> Ah, Monsieur Martel, en parlant de se mettre martel en tête, vous connaissez l'histoire d'Ernest Martel, le cœur sur la main, la pierre dans le cœur. Un grand homme d'Écaussinnes.</p>
+          <p><span class="speaker">MARTEL —</span> Oui, un militant dédié à la cause des ouvriers et ouvrier lui-même, n'est-ce pas&nbsp;? Une figure admirable. Mais je suis un autre type de Martel, plongeant dans les profondeurs de la terre, plutôt que dans les luttes sociales.</p>
+          <p><span class="speaker">LE COCHER —</span> Tout à fait, Monsieur. Deux Martels, deux passions. L'un pour les gens, l'autre pour les mystères cachés. Ça montre bien qu'on ne doit jamais se mettre un seul Martel en tête&nbsp;!</p>
+        </div>
+
+        <p>Le chemin sinueux traversait la forêt de bouleau hérité du bois de l'Houssière et arrivait sur une longue allée en pente douce qui à sa fin se trouvait le « trou du levant ». L'atmosphère fut empreinte d'un mélange d'excitation et de tension palpable. Chaque membre de l'équipe fut conscient des dangers, mais aussi de l'importance de leur mission. Ils se sentirent comme des pionniers aux frontières d'une découverte.</p>
+
+        <p>La veille, ils étaient tombés d'accord au sujet de la lettre de Jean-Baptiste Pierre-Antoine de Monet, Chevalier de la Marck, à Alexander von Humboldt.</p>
+      </div>
+
+      <aside>
+        <figure class="plate">
+          <span class="plate-stripe">SPÉC. — PLANCHE I</span>
+          <div class="plate-frame"><img src="images/kraken-embryon.jpg" alt="Kraken nain de Scoufflény, stade embryonnaire" /></div>
+          <figcaption class="plate-caption">
+            <span class="lbl">FIG. I — KRAKEN NAIN VON HUMBOLDT</span>
+            Cliché du <em>Kraken nain de Scoufflény</em> représentant la genèse de la créature au stade embryonnaire.
+          </figcaption>
+        </figure>
+
+        <figure class="plate">
+          <span class="plate-stripe">CARRIÈRE DE SCOUFFLÉNY</span>
+          <div class="plate-frame" style="aspect-ratio:1/1"><img src="images/scaphandriers-scouffleny.jpg" alt="Quatre scaphandriers à l'entrée de la carrière de Scoufflény" /></div>
+          <figcaption class="plate-caption">
+            <span class="lbl">FIG. II — L'ÉQUIPE À L'ENTRÉE</span>
+            L'équipe de recherche au seuil du trou du Levant&nbsp;: Martel, Denayrouze, Rouquayrol et Haeckel.
+          </figcaption>
+        </figure>
+
+        <div class="notice">
+          <div class="label">À LIRE PAGE III</div>
+          <div class="name">Se mettre Martel en tête</div>
+          <div class="body">L'expression "se mettre martel en tête" est une locution proverbiale française ancienne qui signifie se faire du souci, s'inquiéter.</div>
+        </div>
+
+        <div class="notice">
+          <div class="label">SUITE PAGE IV</div>
+          <div class="name">Jean-Baptiste de Lamarck</div>
+          <div class="body">Naturaliste français, botaniste, il se consacre ensuite à la zoologie des insectes et des vers.</div>
+        </div>
+
+        <div class="notice">
+          <div class="label">LISONS PAGE V</div>
+          <div class="name">Alexander von Humboldt</div>
+          <div class="body">Friedrich Karl Wilhelm Heinrich Alexander, baron von Humboldt — naturaliste, géographe et explorateur allemand.</div>
+        </div>
+      </aside>
+    </div>
+
+    <div class="folio-foot">
+      <span>LA SENNETTE — N° 5'</span>
+      <span class="page-num">I</span>
+      <span>SUITE PAGE II</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOLIO 2 — Furtivité (la plongée)
+     ============================================================ -->
+<section class="folio paper paper-edge" id="folio-2" data-screen-label="Folio 02 — Furtivité">
+  <div class="folio-paper">
+
+    <div class="folio-mast-thin">
+      <span>VOL. III · N° 5'</span>
+      <span>ÉDITION SPÉCIALE</span>
+      <span>LUNDI 08 JUIN 1908</span>
+    </div>
+    <header class="folio-masthead">
+      <h1 class="folio-mh-title masthead-font">Furtivité</h1>
+      <p class="folio-mh-sub">La résurgence de la Sennette, requalifiée en porte sur les méandres des réseaux aquifères constitués par les calcaires dévono-carbonifères et les schistes du Cambro-Silurien du bassin du Brabant.</p>
+    </header>
+    <div class="folio-mast-bottom">
+      <span class="pill">EN PROFONDEUR</span>
+      <span>EXPÉDITION DU TROU DU LEVANT</span>
+      <span class="pill">PAGE II</span>
+    </div>
+
+    <h2 class="h-1 reveal">Sortie des profondeurs, une silhouette en forme de drap.</h2>
+    <p class="h-deck reveal">« Elle évoluait avec une aisance qui défiait les lois de la physique, comme si elle était faite d'eau et de lumière. »</p>
+
+    <div class="grid-31 reveal" style="margin-top:1.4rem">
+      <div class="cols-3 col-block">
+        <p>Il fut préférable de commencer la recherche en explorant la faille du siphon karstique ouvrant leur exploration à toutes les nappes aquifères et phréatiques de la région, en commençant par la rivière Sennette qui traversait le quartier de l'Avedelle, alimentant également le ruisseau Payelles et la carrière du même nom ouverte par Madame Scoumanne en 1896, se jetant dans le ruisseau de Marche à l'endroit dit « Delval » ou « Tartarie », près de la rue du Pré Sabot. La « Tartarie », en souvenir du bref séjour d'un détachement de Tatars en 1815 après la débâcle de Napoléon.</p>
+
+        <p>Martel, dans la descente, où tout le monde fut silencieux et concentré, s'exclama&nbsp;: « <em>La Sennette est une rivière de Belgique, affluent de la Senne, donc sous-affluent de l'Escaut par la Dyle et le Rupel</em>. »</p>
+
+        <p>Les quatre hommes marchèrent encore quelques pas pour arriver à la résurgence, ils se préparèrent pour leur plongée. La surface de l'eau, miroitante sous les premiers rayons du soleil, semblait les inviter à percer ses mystères. Martel et Denayrouze, équipés de leurs scaphandres dernier cri, vérifièrent une dernière fois les systèmes d'oxygénation tandis que Rouquayrol s'assurait de la fiabilité du dispositif de la ligne de vie ou fil d'Ariane. Haeckel, quant à lui, scruta l'eau transparente, tentant de deviner ce que les profondeurs pouvaient cacher.</p>
+
+        <p>Leurs explorations allaient les mener à travers la rivière Sennette, serpentant dans le siphon. Ils traversèrent des écosystèmes variés, découvrant des indices de l'impact humain sur l'environnement, mais aussi des merveilles naturelles inattendues. Sous l'eau, la lumière se faisait rare, mais les lampes de leur équipement dessinaient un chemin à travers l'obscurité. Les parois de la grotte sous-marine étaient ornées de formations calcaires, témoins silencieux d'âges révolus.</p>
+
+        <p>Bientôt, dans une large cavité, ils tombèrent sur une scène étonnante. Une silhouette, ressemblant étrangement à ce que Haeckel avait décrit comme un drap, enveloppée d'un voile d'eau et de mystère, glissait silencieusement à travers le liquide obscur. Ses longs appendices, semblables à des tentacules, ondulaient gracieusement, créant des motifs hypnotiques dans l'eau.</p>
+
+        <p>Haeckel, fasciné, observa chaque mouvement de la créature avec une attention presque religieuse, captivé par la grâce et l'étrangeté de son allure. Il sembla voir dans cette apparition une confirmation de ses théories sur les formes de vie cachées dans les profondeurs de la Terre. L'entité se déplaça lentement&nbsp;; elle semblait paisible, en harmonie avec son environnement, apparemment indifférente à leur présence, continuant son ballet aquatique.</p>
+
+        <p>Elle évolua avec une aisance qui défiait les lois de la physique, comme si elle était faite d'eau et de lumière. Chaque fois qu'ils pensèrent pouvoir la définir, sa silhouette sembla se dissoudre, ne laissant derrière elle qu'une trace éphémère de son existence, un souvenir fugace d'une beauté insondable. Haeckel fut fasciné par la majestuosité de ses déplacements, tandis que les autres membres de l'équipe tentèrent de capturer des images.</p>
+
+        <p>Sortant des profondeurs des eaux, les explorateurs se retrouvèrent dans une immense excavation, semblable à une cathédrale. Leur petite taille contrasta avec l'immensité de l'espace, tandis qu'ils se délestèrent de leurs lourds équipements de plongée. Les ombres se jouaient sur les murs anciens dans la lumière tamisée, créant une atmosphère surréelle mais majestueuse, offrant un contraste saisissant avec l'étroitesse des passages aquatiques qu'ils venaient de traverser, probablement entre le Trou Barette et le trou rivière.</p>
+
+        <p>L'expédition dirigée par Martel, après leur plongée dans cet espace vaste et silencieux, les explorateurs, soulagés de se libérer de leur équipement, prirent un moment pour absorber la grandeur et la beauté naturelle qui les entouraient. L'atmosphère fut fraîche et l'air humide, un changement bienvenu après l'environnement compressé et confiné sous l'eau.</p>
+
+        <p class="pullquote">— Vous avez vu&nbsp;? Vous l'avez vu&nbsp;? Incroyable, merveilleux, nous l'avons trouvé&nbsp;!<small>— DENAYROUZE, à la sortie du siphon</small></p>
+
+        <p>Leur exaltation est palpable, un mélange d'étonnement et de joie face à cette confirmation exceptionnelle. « Incroyable, merveilleux, nous l'avons trouvé&nbsp;! » s'exclama également Martel, son visage illuminé par l'éclat de la découverte. Cette rencontre avec la créature confirma leurs théories et suscita une admiration sépulcrale. Ils se sentirent privilégiés d'avoir assisté à un spectacle aussi rare et magnifique, un moment historique dans l'exploration des carrières, bouleversés et enthousiastes par la vue de la créature.</p>
+
+        <p>Rouquayrol et Haeckel préparèrent le campement, dans le cadre enchanteur de cette grotte. Leurs discussions s'animèrent autour des flammes vacillantes, et, tout en posant la théière sur le feu pour en chauffer l'eau, Martel expliqua comment lors de ses précédentes expéditions, il était gravement tombé malade en buvant une simple infusion polluée par le cadavre d'un veau en putréfaction qui était tombé dans un puits qu'il explorait.</p>
+
+        <p>L'homme était fier d'expliquer à ses compagnons qu'après cette expérience fâcheuse, une loi portait depuis son nom à cause de cet empoisonnement. Martel, avec une passion contagieuse, partagea ses exploits passés avec ses collègues, sa passion pour l'hydrologie souterraine, et les merveilles cachées de la terre. Il expliqua comment, au-delà de la simple exploration de plus de mille grottes, il a mis en évidence le rôle des cavernes et des rivières souterraines dans la contamination des sources d'eau, souligna l'importance de surveiller les sources d'eau, surtout dans les zones sans terrains filtrant naturels, la nécessité d'établir des mesures de protection contre la pollution et qu'il n'avait au grand jamais croisé une telle créature dans d'autre site.</p>
+
+        <p>Ernst Haeckel n'arrêta plus d'écrire sur son calepin, de peur que sa mémoire visuelle ne se dissipe&nbsp;; ce biologiste averti suçait son crayon les yeux en l'air, avait déjà fait deux croquis rapides de l'ébauche du Kraken von Humboldt, kraken nain de Scoufflény.</p>
+
+        <p>Le retour, s'il ne pleuvait pas, allait mettre comme à l'aller, quatre bonnes heures. Il fut temps de partir et d'effectuer le chemin inverse.</p>
+
+        <p>L'atmosphère à Écaussinnes était électrique, le Goûter matrimonial battait son plein. La tradition, ressuscitée par Marcel Tricot en 1903, avait transformé la bourgade en un carrefour de rencontres et de célébrations. Les jeunes filles, vêtues de leurs plus beaux atours, déployèrent leurs charmes autour de l'arbre planté, symbolisant l'espoir et la fertilité.</p>
+
+        <p>Marcel Tricot, imprimeur du journal La Sennette du même nom, avait initié le « Goûter matrimonial » d'Écaussinnes en 1903. Tricot a affiché des annonces prétendant que 60 jeunes filles à marier offriraient un « Goûter monstre » aux célibataires le lundi de la Pentecôte. L'événement, initialement une plaisanterie, gagna en popularité et devint une tradition annuelle. L'information, confirmée par le secrétaire communal de l'époque (le père de Marcel Tricot), fut diffusée dans les journaux du pays, conduisant au succès du premier « Goûter matrimonial d'Écaussinnes-Lalaing ».</p>
+
+        <p>Un bourdonnement d'excitation anima les jeunes bellâtres, charmées et intriguées par les rumeurs d'une expédition scientifique d'envergure. La nouvelle, qui s'était répandue comme une traînée de poudre, évoquait l'aventure audacieuse menée par Martel et son équipe dans les profondeurs des entrailles de Scoufflény.</p>
+
+        <p>Alors que les scientifiques s'apprêtèrent à remonter des eaux souterraines, l'anticipation et l'enthousiasme des jeunes se mêlèrent à la vivacité des festivités traditionnelles, créant une atmosphère unique de découverte et de célébration dans toute la contrée. Ce fut un mélange captivant de science et de festivités, une alliance parfaite qui titillait la curiosité des jeunes prétendants.</p>
+      </div>
+
+      <aside>
+        <figure class="plate">
+          <span class="plate-stripe">PL. III · TROU BARETTE</span>
+          <div class="plate-frame" style="aspect-ratio:4/5"><img src="images/cathedrale-grotte.jpg" alt="La cathédrale souterraine de Scoufflény" /></div>
+          <figcaption class="plate-caption">
+            <span class="lbl">LA CATHÉDRALE SOUTERRAINE</span>
+            Une immense excavation, semblable à une cathédrale.
+          </figcaption>
+        </figure>
+
+        <figure class="plate">
+          <span class="plate-stripe">CROQUIS — E. HAECKEL</span>
+          <div class="plate-frame" style="aspect-ratio:1/1"><img src="images/kraken-face.jpg" alt="Kraken nain de Scoufflény vu de face" /></div>
+          <figcaption class="plate-caption">
+            <span class="lbl">FIG. III — LE KRAKEN NAIN, DE FACE</span>
+            Second croquis d'observation, fait à la lampe de Rouquayrol.
+          </figcaption>
+        </figure>
+
+        <figure class="plate">
+          <span class="plate-stripe">PHOTOGRAPHIE</span>
+          <div class="plate-frame" style="aspect-ratio:4/3"><img src="images/explorateurs-photographient.jpg" alt="Explorateurs photographiant la créature" /></div>
+          <figcaption class="plate-caption">
+            <span class="lbl">CAPTURE D'IMAGES</span>
+            Les membres de l'équipe tentent de capturer des images de la créature.
+          </figcaption>
+        </figure>
+
+        <div class="marginalia">« Loi Martel — empoisonnement par un veau tombé dans un puits ; depuis, une législation porte son nom. »</div>
+      </aside>
+    </div>
+
+    <div class="folio-foot">
+      <span>LA SENNETTE — N° 5'</span>
+      <span class="page-num">II</span>
+      <span>SUITE PAGE III</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     INTERSTITIAL — La rencontre
+     ============================================================ -->
+<section class="interstitial" data-screen-label="Interlude — La Créature">
+  <div class="creature" style="background-image:url('images/kraken-face.jpg')"></div>
+  <div class="interstitial-content">
+    <div class="interstitial-eyebrow">— RENCONTRE —</div>
+    <h2>Elle ne fuyait pas.<br/><em>Elle nous observait.</em></h2>
+    <p>Indifférente à leur présence, la créature poursuivit son ballet aquatique, comme faite d'eau et de lumière.</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOLIO 3 — Actualités du jour
+     ============================================================ -->
+<section class="folio paper paper-edge" id="folio-3" data-screen-label="Folio 03 — Actualités">
+  <div class="folio-paper">
+
+    <div class="folio-mast-thin">
+      <span>VOL. III · N° 5'</span>
+      <span>ACTUALITÉS DU JOUR</span>
+      <span>LUNDI 08 JUIN 1908</span>
+    </div>
+    <header class="folio-masthead">
+      <h1 class="folio-mh-title masthead-font">Actualités du jour</h1>
+      <p class="folio-mh-sub">Le contraste entre les équipements de plongée modernes et les costumes traditionnels donnait une touche d'irréalité à l'événement.</p>
+    </header>
+    <div class="folio-mast-bottom">
+      <span class="pill">SCIENCE &amp; TRADITION</span>
+      <span>SORTIE DES EAUX · LUNDI DE PENTECÔTE</span>
+      <span class="pill">PAGE III</span>
+    </div>
+
+    <h2 class="h-1 reveal">Origine et motifs de l'exploration des carrières d'Écaussinnes.</h2>
+    <p class="h-deck reveal">La sortie des eaux du lac du Trou du Levant, juxtaposée aux effervescentes festivités de la grande rencontre organisée le premier lundi de Pentecôte lors des goûters matrimoniaux.</p>
+
+    <figure class="plate wide reveal">
+      <span class="plate-stripe">PHOTOGRAPHIE</span>
+      <div class="plate-frame tone-clean" style="aspect-ratio:21/9"><img src="images/groupe-mariee-plongeurs.jpg" alt="Mariée et plongeurs au Goûter Matrimonial" /></div>
+      <figcaption class="plate-caption">
+        <span class="lbl">LA SORTIE DES EAUX · CARRIÈRE DU LEVANT</span>
+        Au premier plan, Martel, une jeune mariée, Denayrouze, Rouquayrol et Haeckel. À l'arrière-plan, les invités du Goûter Matrimonial.
+      </figcaption>
+    </figure>
+
+    <div class="grid-21 reveal">
+      <div class="col-block">
+        <p>L'expédition de Martel, Denayrouze, Rouquayrol et Haeckel dans la carrière de Scoufflény, juxtaposée au Goûter matrimonial d'Écaussinnes, créa un mélange unique de célébration et de découverte. Tandis que l'équipe scientifique, masques et scaphandres sous le bras, se fraya un chemin à travers la fête en pleine effervescence, la jeunesse d'Écaussinnes, réunie autour de l'arbre symbolique, s'amusait, insouciante des mystères que les explorateurs avaient percés.</p>
+
+        <p>Les rires et la musique contrastaient avec l'intense perspective des plongeurs et des conséquences de l'existence de la créature de von Humboldt, le <em>Kraken nain de Scoufflény</em>.</p>
+
+        <p>Le contraste entre les équipements de plongée modernes et les costumes traditionnels donnait une touche d'irréalité à l'événement pendant que Martel et son équipe s'étonnaient de la réussite de leur aventure sous-marine. La musique, les rires et les chants emplissaient l'air, créant un pont entre le passé et le présent, la science et la tradition, de joie et de réussite.</p>
+
+        <figure class="plate in-column">
+          <span class="plate-stripe">PHOTO-DOCUMENT</span>
+          <div class="plate-frame tone-clean" style="aspect-ratio:5/4"><img src="images/gouter-mariee-plongeurs.jpg" alt="Plongeurs au Goûter Matrimonial" /></div>
+          <figcaption class="plate-caption">
+            <span class="lbl">JUXTAPOSITION</span>
+            Scaphandres et robes blanches, place de l'Hôtel de Ville.
+          </figcaption>
+        </figure>
+      </div>
+
+      <aside style="background:rgba(244,232,205,.5);border:1px solid var(--rule);padding:1.4rem 1.6rem">
+        <p class="h-kicker" style="text-align:left;margin:0 0 .4rem">DU PROVERBE — ORIGINE</p>
+        <h3 class="h-2" style="font-size:32px;text-align:left">« Se mettre martel en tête »</h3>
+
+        <figure class="plate in-column">
+          <span class="plate-stripe">BATAILLE DE POITIERS · 732</span>
+          <div class="plate-frame tone-clean" style="aspect-ratio:1/1"><img src="images/bataille-poitiers.jpg" alt="Bataille de Poitiers" /></div>
+          <figcaption class="plate-caption">
+            <span class="lbl">CHARLES MARTEL · 732</span>
+            Lithographie illustrant la victoire des Francs sur les armées d'Al-Andalus.
+          </figcaption>
+        </figure>
+
+        <p style="font-size:15px;line-height:1.55;color:#1a1408">Le mot « martel » dans cette expression ne fait pas référence à un outil ou à une arme, mais plutôt au nom propre <em>Martel</em>. Plus précisément, il s'agit d'une allusion à <strong>Charles Martel</strong>, grand-père de Charlemagne et figure historique de l'époque mérovingienne en France. Charles Martel est surtout connu pour sa victoire à la bataille de Poitiers en 732, stoppant l'avancée des armées musulmanes en Europe occidentale.</p>
+
+        <p style="font-size:15px;line-height:1.55;color:#1a1408">L'expression découle de la réputation de Charles Martel en tant que personnage préoccupé et constamment en proie à des soucis d'ordre militaire et politique. Ainsi, « se mettre martel en tête » signifie littéralement se faire autant de souci que Charles Martel, c'est-à-dire se préoccuper outre mesure.</p>
+
+        <p style="font-size:15px;line-height:1.55;color:#1a1408">Cet affrontement est survenu en octobre 732 et est célèbre pour avoir opposé les forces franques et burgondes dirigées par Charles Martel aux armées musulmanes d'Al-Andalus sous la direction d'Abdul Rahman Al Ghafiqi, gouverneur d'Al-Andalus. Charles Martel, dont le surnom signifie « le Marteau », était le maire du palais du royaume des Francs.</p>
+
+        <p style="font-size:15px;line-height:1.55;color:#1a1408">La bataille de Poitiers a marqué l'arrêt de l'expansion musulmane en Europe occidentale. Après cette bataille, les armées musulmanes se retirèrent vers la péninsule ibérique (l'Espagne et le Portugal actuels), où elles maintinrent leur présence pendant plusieurs siècles.</p>
+      </aside>
+    </div>
+
+    <div class="folio-foot">
+      <span>LA SENNETTE — N° 5'</span>
+      <span class="page-num">III</span>
+      <span>SUITE PAGE IV</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOLIO 4 — Commemorentum (Lettre Lamarck → Humboldt)
+     ============================================================ -->
+<section class="folio paper paper-edge" id="folio-4" data-screen-label="Folio 04 — Commemorentum">
+  <div class="folio-paper">
+
+    <div class="folio-mast-thin">
+      <span>VOL. III · N° 5'</span>
+      <span>COMMEMORENTUM</span>
+      <span>LUNDI 08 JUIN 1908</span>
+    </div>
+    <header class="folio-masthead">
+      <h1 class="folio-mh-title masthead-font">Commemorentum</h1>
+      <p class="folio-mh-sub">Correspondance entre Monsieur Jean-Baptiste Pierre-Antoine de Monet, Chevalier de Lamarck, et Monsieur Alexander von Humboldt.</p>
+    </header>
+    <div class="folio-mast-bottom">
+      <span class="pill">CORRESPONDANCE</span>
+      <span>À LA POURSUITE DE LA CLASSIFICATION DU KRAKEN</span>
+      <span class="pill">PAGE IV</span>
+    </div>
+
+    <p class="h-kicker reveal">RETRANSCRIPTION LITTÉRALE</p>
+    <h2 class="h-1 reveal">Lettre de Lamarck à von Humboldt.</h2>
+
+    <div class="grid-31 reveal" style="margin-top:1.4rem">
+      <div>
+        <article class="letter-block">
+          <div class="stamp">ACAD.<br/>DES<br/>SCIENCES<br/><em>·PARIS·</em></div>
+
+          <div class="letter-head">
+            <div>DE<span class="name">J.-B. de Lamarck</span></div>
+            <div style="text-align:right">PARIS — 1829</div>
+          </div>
+
+          <h3 class="letter-title">À Monsieur Alexander von Humboldt — sur l'adaptation des céphalopodes phréatiques.</h3>
+
+          <div class="letter-body">
+            <p><em>Cher Alexander von Humboldt,</em></p>
+
+            <p>Je me permets d'adresser cette lettre suite à la dernière publication de votre équipe dans le journal <em>Comptes rendus de l'Académie des sciences</em>, chacun ayant contribué de manière significative à notre compréhension de ce monde mystérieux que sont les carrières belges.</p>
+
+            <p>J'aimerais vous faire partager ma réflexion récente, qui soulève des questions fascinantes sur l'adaptation et l'évolution des espèces.</p>
+
+            <p>Au cours de vos récentes explorations dans les carrières d'Écaussinnes, en Belgique, vous avez fait une découverte extraordinaire&nbsp;: le <strong>Kraken nain de Scoufflény</strong>, également connu sous le nom de Kraken nain qui porte aujourd'hui votre nom, <em>von Humboldt</em>. Cette créature étonnante, que j'ai étudiée avec passion grâce à vos récits et descriptifs, a suscité en moi de profondes réflexions sur les mécanismes de l'évolution.</p>
+
+            <p>Le Kraken nain de Scoufflény est une espèce aquatique adaptée à la vie en eau douce, notamment dans les eaux phréatiques souterraines. Ce qui est remarquable, c'est son adaptation physique aux conditions de son environnement. En particulier, j'ai observé que la taille de ces créatures varie considérablement en fonction de la profondeur à laquelle elles se trouvent. Les individus vivant dans les eaux les plus profondes présentent une taille nettement plus grande que ceux vivant en eaux peu profondes. Cette adaptation apparente à la pression et à la disponibilité des ressources alimentaires est véritablement intrigante.</p>
+
+            <p>Cette découverte m'a amené à réfléchir à la manière dont de telles adaptations se produisent et se transmettent dans les populations. Cela me rappelle les théories énoncées par chacun de vous.</p>
+
+            <p>Je pourrais en déduire que l'acquisition des caractères au cours de la vie d'un individu, et leur transmission à la descendance, semblent prendre vie à travers ces observations. Pourriez-vous envisager que ces créatures développent des caractéristiques adaptatives en réponse à leur environnement, et que ces caractéristiques soient transmises à leur progéniture&nbsp;?</p>
+
+            <p>Monsieur von Humboldt, votre travail sur la diversité des espèces et les interactions entre les êtres vivants et leur environnement naturel est également au cœur de cette découverte. Le Kraken nain de Scoufflény est un exemple remarquable de la façon dont les créatures s'adaptent aux conditions extrêmes de leur habitat, et cela pourrait enrichir nos connaissances sur la diversité de la vie.</p>
+
+            <p>Je vous invite à discuter de cette découverte et de ses implications pour nos théories sur l'évolution. L'étude du Kraken nain de Scoufflény pourrait jeter un éclairage nouveau sur les mécanismes complexes qui façonnent la vie en eau douce hydrostatique en haute pression.</p>
+
+            <p>Je vous remercie de prendre en considération cette invitation à la réflexion scientifique, et j'attends avec impatience vos remarques sur cette hypothèse.</p>
+
+            <p>Avec le plus grand respect,</p>
+          </div>
+
+          <div class="signature">
+            <span class="sig">Lamarck</span>
+            <span class="sig-meta">JEAN-BAPTISTE-PIERRE-ANTOINE DE MONET · CHEVALIER DE LA MARCK</span>
+          </div>
+        </article>
+      </div>
+
+      <aside>
+        <figure class="portrait-frame">
+          <img src="images/lamarck.jpg" alt="Portrait de Jean-Baptiste de Lamarck" />
+          <p class="portrait-caption">JEAN-BAPTISTE DE LAMARCK<br/>(1744 — 1829)</p>
+        </figure>
+
+        <div class="bio-card" style="margin-top:1rem">
+          <div class="role">NATURALISTE FRANÇAIS</div>
+          <h4>Lamarck — précurseur de l'évolution</h4>
+          <div class="years">1744 — 1829</div>
+          <p><strong>Usage et désuet&nbsp;:</strong> les organes se développent ou régressent en fonction de leur utilisation.</p>
+          <p><strong>Transmission des caractères acquis&nbsp;:</strong> les caractères acquis au cours de la vie d'un individu peuvent être transmis à sa progéniture.</p>
+          <p>Par exemple, il pensait que les girafes avaient de longs cous parce que leurs ancêtres avaient étiré leurs cous pour atteindre des feuilles en hauteur, et que cette caractéristique avait été transmise aux générations suivantes.</p>
+        </div>
+
+        <div class="bio-card">
+          <div class="role">IMPACT &amp; CRITIQUES</div>
+          <h4>Précurseur de Darwin</h4>
+          <p>Bien que les idées de Lamarck sur l'hérédité aient été en grande partie discréditées, il est reconnu pour avoir mis en avant l'idée de l'évolution biologique.</p>
+          <p>La théorie de l'évolution de Darwin, basée sur la sélection naturelle, s'est avérée plus précise et a remplacé celle de Lamarck. Darwin reconnaissait cependant Lamarck comme un important précurseur.</p>
+          <p style="font-style:italic;color:var(--sepia-deep)">Lamarck a déduit que ce sont les individus qui s'adaptent à leur milieu. Si les conditions climatiques ou géologiques changent durablement, les êtres vivants transforment leur corps — mais pas de manière contrôlée — et cette transformation est transmissible à la descendance.</p>
+        </div>
+
+        <figure class="plate">
+          <span class="plate-stripe">HUMBOLDT &amp; BONPLAND</span>
+          <div class="plate-frame tone-clean" style="aspect-ratio:1/1"><img src="images/humboldt-bonpland.jpg" alt="Humboldt et Bonpland en expédition" /></div>
+          <figcaption class="plate-caption">
+            <span class="lbl">L'EXPÉDITION D'AMÉRIQUE · 1799-1804</span>
+            Humboldt et le docteur Aimé Bonpland en relevé botanique.
+          </figcaption>
+        </figure>
+      </aside>
+    </div>
+
+    <div class="folio-foot">
+      <span>LA SENNETTE — N° 5'</span>
+      <span class="page-num">IV</span>
+      <span>BIOGRAPHIE — PAGE V</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOLIO 5 — Biographie Humboldt + Lettre Martel → Haeckel
+     ============================================================ -->
+<section class="folio paper paper-edge" id="folio-5" data-screen-label="Folio 05 — Biographie Humboldt">
+  <div class="folio-paper">
+
+    <div class="folio-mast-thin">
+      <span>VOL. III · N° 5'</span>
+      <span>BIOGRAPHIE</span>
+      <span>LUNDI 08 JUIN 1908</span>
+    </div>
+    <header class="folio-masthead">
+      <h1 class="folio-mh-title masthead-font">Baron Alexander von Humboldt</h1>
+      <p class="folio-mh-sub">Le père de la découverte du Kraken nain de Scoufflény, le Kraken von Humboldt.</p>
+    </header>
+    <div class="folio-mast-bottom">
+      <span class="pill">PORTRAITS</span>
+      <span>1769 — 1859 · PRUSSE</span>
+      <span class="pill">PAGE V</span>
+    </div>
+
+    <div class="grid-13 reveal" style="margin-top:1.4rem">
+      <aside>
+        <figure class="portrait-frame">
+          <img src="images/humboldt-portrait.jpg" alt="Portrait d'Alexander von Humboldt par E. Hader, 1879" />
+          <p class="portrait-caption">A. VON HUMBOLDT<br/>1769 — 1859 · gravure E. Hader, 1879</p>
+        </figure>
+
+        <figure class="portrait-frame" style="margin-top:1rem">
+          <img src="images/humboldt-dessin.jpg" alt="Humboldt jeune" />
+          <p class="portrait-caption">HUMBOLDT JEUNE — Dessin à la plume</p>
+        </figure>
+
+        <figure class="plate" style="margin-top:1rem">
+          <span class="plate-stripe">TIMBRE — WALLONIA</span>
+          <div class="plate-frame tone-clean" style="aspect-ratio:3/4"><img src="images/timbre-wallonia.jpg" alt="Timbre Von Humboldt Wallonia" /></div>
+          <figcaption class="plate-caption">
+            <span class="lbl">10 — VON HUMBOLDT · WALLONIA</span>
+            Vignette philatélique commémorative.
+          </figcaption>
+        </figure>
+      </aside>
+
+      <div>
+        <div class="cols-2 col-block">
+          <p>Friedrich Karl Wilhelm Heinrich Alexander, baron von Humboldt (1769 – 1859), était un naturaliste, géographe et explorateur allemand (prussien), membre associé de l'Académie française des Sciences et président de la Société de géographie de Paris. Il a révolutionné le domaine des explorations scientifiques grâce à ses relevés topographiques et prélèvements de la faune et de la flore.</p>
+
+          <p>Humboldt a reçu une éducation rigoureuse, étudiant l'archéologie, la médecine, la physique, les mathématiques, la botanique, l'anatomie, la zoologie, la géologie, ainsi que l'économie et la gestion à l'école de commerce de Hambourg. Il s'est également formé à l'école des mines.</p>
+
+          <p>Humboldt est un scientifique à multiples facettes&nbsp;: il fait des expériences sur l'effet de l'électricité qu'il pense être contenue dans les nerfs, mis en évidence par l'application de deux métaux différents. Il utilise même son propre corps pour ses expériences. En 1797, il publie ses expériences sur le muscle et la fibre nerveuse excitée, avec des conjectures sur le processus chimique de la vie. Alessandro Volta montre en 1795 que ce sont les métaux qui créent l'électricité et invente la pile électrique en 1800. Humboldt gardera toute sa vie l'amertume de ne pas avoir fait la distinction entre les effets physiologiques et électriques, et de ne pas en avoir déduit les principes de la pile.</p>
+
+          <p>Il a également mis au point une méthode de relevé météorologique utilisée mondialement, soulignant l'importance des courants marins dans la redistribution des températures. Son <strong>expédition en Amérique (1799-1804)</strong> a été un moment clé de sa carrière. Humboldt, avec le docteur Aimé Bonpland, son secrétaire, s'est finalement lancé dans une expédition scientifique en Amérique du Sud, explorant et documentant rigoureusement la région.</p>
+
+          <p>Au cours de cette expédition, Humboldt a effectué des mesures astronomiques, météorologiques et magnétiques. Il a étudié la composition chimique de la mer. Son dégoût pour le commerce des esclaves l'a transformé en un fervent abolitionniste. De l'Amérique du Sud au Mexique, en Californie, à travers le Pacifique, puis au pôle Sud, en Mongolie, en Chine et en Sibérie.</p>
+
+          <p>L'ambition majeure d'Humboldt pendant son voyage aux Amériques est de découvrir l'interaction des forces de la nature et les influences qu'exerce l'environnement géographique sur la vie végétale et animale. Il a prouvé l'existence du canal naturel entre l'Orénoque et l'Amazone, et a posé l'hypothèse que <em>les actions humaines pouvaient modifier le climat</em>. Sa renommée mondiale s'est consolidée lorsqu'il a gravi le Chimborazo, alors considéré comme le plus haut sommet du monde.</p>
+
+          <p>Ses observations en sismologie et phytogéographie ont été révolutionnaires, notamment sa carte de végétation du Chimborazo dont il publiera une carte à son retour. Il a également identifié le potentiel fertilisant du guano et étudié le courant marin qui porte aujourd'hui son nom.</p>
+
+          <p>Il déduit des alignements de volcans que les chaînes de montagnes se sont formées le long de failles géologiques. Pendant ses navigations, Humboldt fait des mesures astronomiques, météorologiques, de magnétisme, de température et de composition chimique de la mer, l'inclinaison magnétique, de longitude et de latitude.</p>
+
+          <p>Humboldt a publié de nombreux ouvrages, dont un ensemble de trente volumes sur son voyage en Amérique. Il a également rédigé <em>Cosmos</em>, décrivant les phénomènes terrestres et célestes connus à son époque. Sa méthode scientifique alliant mesure précise, inventaire et classification des espèces, et analyse interdisciplinaire, a été hautement influente.</p>
+
+          <p class="pullquote">« Considéré comme le père de la géographie moderne, Humboldt fut un précurseur dans l'étude du changement climatique induit par l'homme, et le premier à présenter la Terre comme un organisme vivant. »</p>
+
+          <p>Bilan de l'expédition d'Humboldt et Bonpland&nbsp;: d'une durée de cinq ans, elle a coûté à Humboldt le tiers de son capital. C'est l'une des plus remarquables expéditions scientifiques, avec une moisson de données d'une valeur scientifique encore plus importante que les spécimens qu'ils ont pu rapporter. Des dizaines de journaux de voyages, des centaines de croquis, et une grande quantité de notes sur l'astronomie, la météorologie et la géologie ont été récoltées. En tout, ce sont <strong>5 800 spécimens de plantes</strong>, dont 2 000 considérés comme de nouvelles espèces par les botanistes.</p>
+
+          <p>Lors de son passage aux Amériques, il rencontrera le Président Thomas Jefferson, Benjamin Franklin avec lesquels il correspondra jusqu'à la fin de leur vie. Il fréquente les salons parisiens comme celui de Madame de Récamier, se lie d'amitié avec Chateaubriand, est reçu par Napoléon Bonaparte. De retour en Europe, il incorpore le cercle scientifique <em>Société d'Arcueil</em> formé autour du chimiste Berthollet (eau de javel) où se rencontrent également Louis-Joseph Gay-Lussac avec lequel Humboldt se lie d'amitié.</p>
+
+          <p>En étendant cette propriété à tous les gaz, Gay-Lussac formule la loi de Gay-Lussac qui est l'une des principales lois de la chimie moderne en 1806. <em>Observations sur l'intensité et l'inclinaison des forces magnétiques</em> (1808) confirme la loi découverte par Humboldt en Amérique&nbsp;: l'intensité de la force magnétique croît de l'équateur aux pôles, les inclinaisons diminuant régulièrement selon la latitude.</p>
+
+          <p>En 1829, le Hainaut faisait partie du Royaume des Pays-Bas. Durant cette période, l'Europe était un centre d'activités scientifiques et industrielles intenses. Humboldt était particulièrement intéressé par les avancées technologiques et les phénomènes naturels. Lors de son voyage dans cette région, il explore les mines, recense la flore et la faune notamment des carrières, et identifie la créature vivant dans ces eaux qui porte aujourd'hui son nom, le <strong>Kraken nain von Humboldt</strong> ou Kraken de Scoufflény.</p>
+
+          <p>Humboldt est reconnu comme le père de la géographie moderne en raison de sa méthode holistique d'étude de la Terre, intégrant diverses disciplines scientifiques. Il a établi le principe de causalité en géographie, soulignant l'importance des interactions entre les phénomènes humains et naturels. Son second principe, celui de la géographie générale, implique la comparaison des observations locales avec celles d'autres régions pour établir des lois universelles. Il a ainsi jeté les bases de la géographie physique et de la géophysique, notamment en contribuant au développement de la sismologie.</p>
+
+          <p>Alexander von Humboldt est également considéré comme le père de la météorologie moderne. Il a développé le concept d'<strong>isotherme</strong>, lignes reliant les points de même température sur une carte, ce qui a permis une meilleure compréhension des modèles climatiques mondiaux. Il a aussi reconnu l'importance des courants marins dans la redistribution des températures.</p>
+
+          <p>Sa vision holistique de la nature voyant la Terre comme un organisme vivant et interconnecté était révolutionnaire pour son époque. Cette compréhension a jeté les bases de l'écologie moderne. En décrivant la nature comme un ensemble complexe et interdépendant, Humboldt a anticipé de nombreuses idées qui sont au cœur des mouvements écologiques actuels. Ses observations ont souligné l'importance de la préservation de la nature et de l'équilibre écologique.</p>
+
+          <p>On retiendra entre autres&nbsp;: inventeur du premier masque à gaz, le courant marin de Humboldt longe les côtes du Chili, la mer lunaire appelée mer de Humboldt, la plante nommée <em>Humboldtia</em>, une espèce de manchots — le manchot Humboldt — porte son nom, et il a inspiré de jeunes naturalistes comme Charles Darwin entre autres.</p>
+        </div>
+
+        <h3 class="h-3">DEUXIÈME CORRESPONDANCE — É.-A. MARTEL ADRESSE À ERNST HAECKEL</h3>
+
+        <article class="letter-block">
+          <div class="stamp">SOC.<br/>SPÉLÉO.<br/>DE FRANCE<br/><em>·1893·</em></div>
+
+          <div class="letter-head">
+            <div>DE<span class="name">É.-A. Martel</span></div>
+            <div style="text-align:right">CAUSSE MÉJEAN — 1893</div>
+          </div>
+
+          <h3 class="letter-title">À Monsieur Ernst Haeckel — sur les difficultés de la recherche.</h3>
+
+          <div class="letter-body">
+            <p><em>Cher Ernst Haeckel,</em></p>
+
+            <p>Je me permets de vous adresser cette lettre pour vous faire part des multiples difficultés que nous avons rencontrées lors de nos récentes expéditions en utilisant le scaphandre conçu par Auguste Denayrouze et Benoît Rouquayrol. Ces difficultés ont non seulement ralenti nos recherches, mais elles ont également rendu notre quête de la mystérieuse créature recensée par Alexander von Humboldt dans les carrières d'Écaussinnes extrêmement périlleuse.</p>
+
+            <p>Tout d'abord, permettez-moi de saluer l'ingéniosité de Denayrouze et Rouquayrol pour avoir développé ce dispositif de plongée en scaphandre autonome. Cependant, son utilisation dans le réseau complexe de grottes et de carrières souterraines s'est avérée bien plus difficile que prévu. Les passages étroits, les courants souterrains imprévisibles et les dénivelés subits ont fait de chaque plongée une véritable épreuve.</p>
+
+            <p>De plus, la montée des eaux phréatiques a aggravé nos problèmes. Les niveaux d'eau sont montés plus rapidement que prévu, rendant certaines parties des grottes inaccessibles et mettant en danger la vie de nos plongeurs. Nous avons dû interrompre nos recherches à plusieurs reprises pour des raisons de sécurité, ce qui a considérablement ralenti notre avancée.</p>
+
+            <p>Notre principale préoccupation demeure la créature que von Humboldt a recensée dans les carrières d'Écaussinnes. Nous croyons qu'il s'agit du mystérieux « <em>Kraken nain de Scoufflény</em> », une espèce aquatique adaptée à la vie en eau douce. Cependant, son habitat souterrain complexe et en évolution constante a rendu sa recherche extrêmement difficile.</p>
+
+            <p>Nous nous sommes efforcés de suivre les traces laissées par cette créature, mais elle semble se jouer de nous en se dissimulant dans les recoins les plus inaccessibles des grottes. Malgré nos efforts acharnés, nous n'avons pas encore réussi à l'observer de manière significative.</p>
+
+            <p>Ernst, je vous écris cette lettre avec une pointe de frustration, mais aussi avec la détermination de surmonter ces difficultés. La découverte du « Kraken nain de Scoufflény » pourrait avoir des implications profondes pour notre compréhension de l'adaptation et de l'évolution des espèces. Cependant, nous avons besoin de votre expertise pour relever ce défi.</p>
+
+            <p>Je vous serais extrêmement reconnaissant si vous pouviez envisager de nous rejoindre dans nos prochaines expéditions. Votre connaissance des sciences naturelles, ainsi que votre expérience en tant qu'explorateur, seraient d'une aide inestimable. Ensemble, nous pourrions percer les mystères des eaux souterraines et de cette créature énigmatique.</p>
+
+            <p>Je vous remercie de prendre en considération ma requête et j'espère sincèrement que vous pourrez nous apporter votre soutien dans cette entreprise ambitieuse.</p>
+
+            <p>Avec le plus grand respect,</p>
+          </div>
+
+          <div class="signature">
+            <span class="sig">É.-A. Martel</span>
+            <span class="sig-meta">ÉDOUARD-ALFRED MARTEL — PÈRE DE LA SPÉLÉOLOGIE</span>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <div class="folio-foot">
+      <span>LA SENNETTE — N° 5'</span>
+      <span class="page-num">V</span>
+      <span>ÉQUIPE — PAGE VI</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOLIO 6 — Biographies de l'équipe
+     ============================================================ -->
+<section class="folio paper paper-edge" id="folio-6" data-screen-label="Folio 06 — Équipe de recherche">
+  <div class="folio-paper">
+
+    <div class="folio-mast-thin">
+      <span>VOL. III · N° 5'</span>
+      <span>BIOGRAPHIE</span>
+      <span>LUNDI 08 JUIN 1908</span>
+    </div>
+    <header class="folio-masthead">
+      <h1 class="folio-mh-title masthead-font">L'Équipe de recherche</h1>
+      <p class="folio-mh-sub">Édouard-Alfred Martel, Auguste Denayrouze, Benoît Rouquayrol, Ernst Haeckel.</p>
+    </header>
+    <div class="folio-mast-bottom">
+      <span class="pill">PORTRAITS</span>
+      <span>QUATRE SAVANTS · DEUX GÉNÉRATIONS</span>
+      <span class="pill">PAGE VI</span>
+    </div>
+
+    <p class="h-kicker reveal">QUI SONT LES HOMMES DE LA DESCENTE</p>
+    <h2 class="h-1 reveal">Édouard-Alfred Martel — Père de la spéléologie moderne.</h2>
+
+    <div class="grid-21 reveal" style="margin-top:1.4rem">
+      <div class="col-block nodrop">
+        <p>Édouard-Alfred Martel (1859 – 1938), père de la spéléologie moderne. Juriste de formation, photographe amateur puis expert, il se passionne pour la géologie et l'exploration de grottes. Sa première exploration notable est celle du puits de <strong>Padirac</strong> près de Rocamadour, un abîme vaste et profond qui s'ouvre sur une rivière souterraine, à 100 mètres de profondeur, marquant le début de la spéléologie scientifique.</p>
+
+        <p>Au cours de sa carrière, Martel explore plus de <strong>3 000 grottes</strong>, révolutionnant la compréhension des phénomènes souterrains. Auteur prolifique, il publie des ouvrages influents, dont <em>Les abîmes</em>. Innovateur, il développe technique et matériel spécifique. Martel fonde plusieurs sociétés spéléologiques, influençant de nombreuses générations. Sa contribution à la spéléologie en fait une figure historique majeure dans l'étude des environnements souterrains.</p>
+
+        <p>Il explore des sites en Europe, notamment en France, Belgique, Irlande et en Angleterre. Il joue un rôle clé dans la protection des eaux souterraines, contribuant à l'adoption de la <em>« loi Martel »</em> en 1902.</p>
+
+        <h3 class="h-3">Benoît Rouquayrol — Ingénieur des mines.</h3>
+        <p>Benoît Rouquayrol, ingénieur de l'école des mines de Saint-Étienne, se préoccupe des problèmes de sécurité dans les mines lors des coups de grisou. Il crée un appareil de sauvetage autonome composé d'un réservoir sous pression couplé à un détendeur qu'il nomme <em>régulateur</em> pour l'écoulement des gaz comprimés, et d'un brevet de lampe à pétrole étanche qui peut aussi être utilisée sous l'eau.</p>
+
+        <h3 class="h-3">Auguste Denayrouze — Lieutenant de vaisseau.</h3>
+        <p>Auguste Denayrouze, lieutenant de vaisseau de l'armée française. Lors d'une rencontre significative avec Benoît Rouquayrol, il découvre les trois brevets déposés et voit immédiatement le potentiel d'application de ce régulateur, aussi appelé détendeur, dans le domaine de la plongée sous-marine. Ensemble, ils prennent la décision de perfectionner cette technologie pour l'utiliser sous l'eau et déposent en <strong>1864</strong> le brevet de ce qui deviendra le premier scaphandre autonome capable de fournir de l'air sur demande. La même année, cet équipement reçoit l'approbation de la Marine nationale française.</p>
+
+        <p>En février 1865, Auguste Denayrouze fonde la <em>Société Rouquayrol-Denayrouze</em>, prenant en charge le développement et la diffusion de cette innovation dont Denayrouze et Rouquayrol gagnent une reconnaissance internationale, lorsqu'elle est exposée à l'Exposition Universelle de Paris en 1867, où elle remporte une <strong>médaille d'or</strong>. Cette invention capte l'attention de Jules Verne, présent à l'exposition, qui s'en inspire pour doter le Capitaine Nemo et l'équipage du <em>Nautilus</em> dans son œuvre « Vingt mille lieues sous les mers », publiée en 1869.</p>
+
+        <h3 class="h-3">Ernst Haeckel — Père de l'écologie.</h3>
+        <p>Ernst Haeckel (1834 – 1919), scientifique allemand connu pour son travail en zoologie, histoire naturelle, philosophe et biologiste marin. Il a découvert, décrit et nommé des milliers de nouvelles espèces, il a élaboré un arbre généalogique liant toutes les formes de vie et a inventé de nombreux termes en biologie, y compris <strong>l'écologie, le phylum, la phylogénie et les protistes</strong>.</p>
+
+        <p>La théorie de la récapitulation, souvent résumée par la phrase « <em>l'ontogenèse récapitule la phylogénèse</em> ». Cette théorie, aussi connue sous le nom de « loi biogénétique fondamentale », propose que le développement embryonnaire d'un individu (ontogenèse) suit un modèle qui résume l'histoire évolutive de son espèce (phylogénèse). En d'autres termes, les stades du développement d'un embryon reflètent les formes ancestrales de l'espèce au cours de son évolution.</p>
+
+        <p>Il est considéré comme le <strong>père de l'écologie</strong>, discipline qui cherche à étudier les rapports entre un organisme et son environnement, et le créateur du terme « écologie » en 1866.</p>
+
+        <p>Ernst Haeckel a beaucoup contribué à la biologie et à la théorie de l'évolution. Il a inventé le terme « écologie » pour décrire l'étude des relations entre les organismes et leur environnement. Haeckel croyait que tous les êtres vivants, y compris les humains, étaient étroitement liés et partageaient un ancêtre commun. Ses idées ont encouragé une compréhension plus profonde de la nature et de notre place dans le monde.</p>
+
+        <p>Haeckel a aussi proposé que le développement d'un organisme (son ontogenèse) récapitule l'histoire évolutive de son espèce (sa phylogenèse), bien que cette idée soit aujourd'hui considérée comme simpliste et partiellement incorrecte. Malgré cela, il a ouvert la voie à de nombreuses découvertes importantes en embryologie.</p>
+
+        <p>En plus de ses contributions scientifiques, Haeckel était un artiste talentueux. Ses illustrations détaillées de la vie marine ont inspiré le mouvement artistique de l'<strong>Art Nouveau</strong>. Il a également écrit sur la relation entre la science et la philosophie, plaidant pour une vision unifiée du monde naturel, qu'il appelait le « <em>monisme</em> ». Cette vision mettait l'accent sur l'interconnexion de tout dans l'univers, rejetant les visions dualistes qui séparent l'esprit et la matière.</p>
+
+        <p>En résumé, Ernst Haeckel était un pionnier dans l'étude de l'évolution et de l'écologie, dont les travaux ont grandement influencé à la fois la science et l'art. Ses idées sur l'unité de la nature et l'importance de comprendre notre place dans l'écosystème mondial restent pertinentes aujourd'hui.</p>
+      </div>
+
+      <aside>
+        <figure class="portrait-frame">
+          <img src="images/haeckel.jpg" alt="Portrait gravé d'Ernst Haeckel" />
+          <p class="portrait-caption">ERNST HAECKEL — 1834 — 1919</p>
+        </figure>
+
+        <figure class="plate" style="margin-top:1rem">
+          <span class="plate-stripe">HAECKEL EN EXPÉDITION</span>
+          <div class="plate-frame tone-clean" style="aspect-ratio:3/4"><img src="images/haeckel-naturaliste.jpg" alt="Haeckel et son assistant" /></div>
+          <figcaption class="plate-caption">
+            <span class="lbl">CARNETS DE TERRAIN</span>
+            Haeckel et son préparateur, atelier de zoologie.
+          </figcaption>
+        </figure>
+
+        <figure class="plate">
+          <span class="plate-stripe">SCAPHANDRE 1864</span>
+          <div class="plate-frame tone-clean" style="aspect-ratio:5/3"><img src="images/casque-rouquayrol.jpg" alt="Casque Rouquayrol-Denayrouze" /></div>
+          <figcaption class="plate-caption">
+            <span class="lbl">L'AÉROPHORE — « J'APPORTE L'AIR »</span>
+            Casque, détendeur et réservoir haute pression. Médaille d'or, Paris 1867.
+          </figcaption>
+        </figure>
+
+        <div class="bio-card">
+          <div class="role">FIGURE LOCALE · ÉCAUSSINNES</div>
+          <h4>Ernest Martel</h4>
+          <div class="years">1880 — 1937</div>
+          <figure class="portrait-frame" style="margin:.4rem 0 .6rem">
+            <img src="images/ernest-martel.jpg" alt="Portrait d'Ernest Martel" />
+            <p class="portrait-caption">ERNEST MARTEL — CARRIER &amp; SYNDICALISTE</p>
+          </figure>
+          <p>Natif d'Écaussinnes d'Enghien, porteur de télégrammes avant de devenir carrier, il rejoint le <em>Syndicat des Ouvriers de la Pierre d'Écaussinnes</em> créé en 1896, et en devient le secrétaire en 1905.</p>
+          <p>En 1907, il négocie avec les propriétaires des carrières un accord sans avoir à initier une grève&nbsp;: augmentation de 5&nbsp;% pour les ouvriers carriers, et journée réduite de 11h30 à 10h30.</p>
+          <p>Les patrons ne tinrent pas parole et une importante grève éclata à la carrière du Levant employant quelque 3 000 ouvriers. Ce mouvement s'étendit aux carrières d'Arquennes, Feluy, Marche-lez-Écaussinnes, Écaussinnes d'Enghien et Lalaing dont Ernest Martel a été une figure clé.</p>
+          <p>À l'issue de cet affrontement significatif de <strong>37 semaines</strong>, il réussit à imposer l'adoption de ses tarifs et horaires révisés par les propriétaires, une victoire qui s'est étendue à toute la région du Hainaut. Soutien financier&nbsp;: le syndicat des marins d'Anvers et les travailleurs du métal de Liège.</p>
+          <p>Chef de file du Parti Ouvrier Belge (P.O.B.), Martel devient bourgmestre, régent de la Banque nationale et député permanent. Une grande rue porte son nom dans le village d'Écaussinnes.</p>
+        </div>
+      </aside>
+    </div>
+
+    <div class="folio-foot">
+      <span>LA SENNETTE — N° 5'</span>
+      <span class="page-num">VI</span>
+      <span>L'ÉTENDARD DE L'AMOUR — PAGE VII</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOLIO 7 — L'étendard de l'amour | Goûter Matrimonial
+     ============================================================ -->
+<section class="folio paper paper-edge" id="folio-7" data-screen-label="Folio 07 — Goûter Matrimonial">
+  <div class="folio-paper">
+
+    <div class="folio-mast-thin">
+      <span>VOL. III · N° 5'</span>
+      <span>RÉTROSPECTIVE</span>
+      <span>LUNDI 08 JUIN 1908</span>
+    </div>
+    <header class="folio-masthead">
+      <h1 class="folio-mh-title masthead-font">L'étendard de l'amour</h1>
+      <p class="folio-mh-sub">Tunnel des amoureux — Racines et renaissance du Goûter Matrimonial d'Écaussinnes : tradition, amour et fertilité à l'épreuve du temps.</p>
+    </header>
+    <div class="folio-mast-bottom">
+      <span class="pill">FOLKLORE</span>
+      <span>BELTAINE · ARBRE DE MAI · GOÛTER MONSTRE</span>
+      <span class="pill">PAGE VII</span>
+    </div>
+
+    <figure class="plate wide reveal">
+      <span class="plate-stripe">AFFICHE OFFICIELLE — 1908</span>
+      <div class="grid-21" style="gap:1.4rem;margin-top:.4rem">
+        <div class="plate-frame tone-clean" style="aspect-ratio:3/4"><img src="images/affiche-gouter-1908.jpg" alt="Affiche du Goûter Matrimonial 1908" /></div>
+        <div class="plate-frame tone-clean" style="aspect-ratio:3/4"><img src="images/art-nouveau-gouter.jpg" alt="Affiche Art Nouveau du Goûter Matrimonial" /></div>
+      </div>
+      <figcaption class="plate-caption" style="margin-top:.8rem">
+        <span class="lbl">GOÛTER MATRIMONIAL — ÉCAUSSINNES-LALAING</span>
+        À&nbsp;gauche, affiche officielle du Lundi de Pentecôte 8 juin 1908. À&nbsp;droite, illustration Art Nouveau commémorative.
+      </figcaption>
+    </figure>
+
+    <h2 class="h-1 reveal">« Sous le feu de Beltaine, les cœurs s'unissent et la vie danse en un renouveau. »</h2>
+
+    <div class="grid-21 reveal" style="margin-top:1.4rem">
+      <div class="cols-2 col-block">
+        <p>La tradition du goûter et la plantation de l'arbre de mai à Écaussinnes est une célébration historique marquant la jeunesse, l'agriculture, les récoltes et la fertilité. Originaire des indo-européens et perpétuée par les Celtes, cette fête comprenait la <strong>plantation nocturne d'un bouleau</strong> par les jeunes hommes d'un hameau, suivie par une décoration de l'arbre par les jeunes filles le lendemain, culminant avec une fête et un goûter offert. Symbolisant diverses valeurs, le bouleau représentait la jeunesse, la douceur et le mariage.</p>
+
+        <p>Avec le temps, les traditions autour de l'arbre de mai ont évolué différemment selon les régions. En France, la plantation célébrait la victoire d'un élu politique, tandis qu'à Bruxelles, le <em>Meyboom</em> commémorait une victoire historique sur les taxes de la bière en août. À Silly, elle était l'occasion d'une fête locale. <strong>Seulement à Écaussinnes</strong>, cette tradition incluait un goûter le lendemain, favorisant les rencontres et les mariages potentiels.</p>
+
+        <p>Toutefois, avec l'avènement de la révolution industrielle, l'intérêt pour ces célébrations traditionnelles a décliné, menaçant la survie de la tradition à Écaussinnes. En <strong>1903</strong>, Marcel Tricot, un jeune homme de dix-neuf ans, imprimeur et héritier d'un énorme héritage culturel local, avec l'aide de Georges Wargnies, a pris l'initiative de relancer la tradition de la plantation de mai et du goûter. Utilisant ses compétences d'imprimeur, Marcel a créé et distribué une affiche dans la commune et envoyé des annonces à des journaux pour revitaliser cette célébration.</p>
+
+        <p>Au fil des ans, le Goûter Matrimonial est devenu un événement d'envergure internationale, attirant des célibataires désireux de trouver l'amour, mais aussi de participer à une célébration riche en folklore et en traditions. L'événement s'étend sur trois jours de festivités incluant brocantes, marchés artisanaux, apéritifs de l'amour, concerts, et autres animations, culminant avec un grand feu d'artifice.</p>
+
+        <p>La portée de cet événement dépasse largement le cadre de la rencontre amoureuse, en constituant une affirmation culturelle forte et un moment privilégié de lien social au sein de la communauté. Le Goûter Matrimonial illustre parfaitement la manière dont les traditions peuvent évoluer et s'adapter aux époques tout en conservant leur essence et leur capacité à rassembler les gens autour de valeurs communes telles que l'amour, la communauté et la célébration de la vie.</p>
+
+        <p class="pullquote">« À l'occasion du mai planté en l'honneur de la jeunesse. »<small>— Affiche communale, 1903</small></p>
+
+        <p>Cette célébration trouve ses racines dans les traditions indo-européennes et a été perpétuée par les Celtes, un peuple connu pour sa riche culture et ses pratiques rituelles profondément liées à la nature, aux cycles agricoles et aux saisons. Chez les Celtes, la fête de <strong>Beltaine</strong> (ou Beltane) est particulièrement significative et illustre bien cette connexion avec la jeunesse, l'agriculture, les récoltes et la fertilité.</p>
+
+        <p>Beltaine, célébrée le 1<sup>er</sup> mai, marquait le début de la saison estivale pour les Celtes. Cette fête était associée à la fertilité tant de la terre que des personnes. Les célébrations comprenaient le <em>feu de Beltaine</em>, allumé par les druides. Le bétail était conduit à travers les feux pour les purifier et les protéger des maladies avant d'être envoyé dans les pâturages d'été. Ce rituel de passage par le feu symbolisait également la régénération et le renouveau.</p>
+
+        <p>La plantation de l'arbre de mai, bien que plus spécifiquement liée à des pratiques locales dans certaines régions d'Europe, partage des similitudes avec la tradition celtique de Beltaine en termes de symbolisme de fertilité et de célébration de la vie. Le bouleau, en particulier, était valorisé pour ses associations avec la croissance et le renouveau. Dans ces célébrations, les jeunes hommes plantaient un arbre (le bouleau étant privilégié) dans un geste symbolique de fertilité et de soutien à la croissance. Le lendemain, les jeunes filles décoraient cet arbre et organisaient une fête, offrant un espace pour les interactions sociales et potentiellement les unions futures.</p>
+
+        <p>Les danses et festivités autour de l'arbre de mai étaient des moments propices aux rapprochements, reflétant l'importance de la communauté et des relations interpersonnelles dans ces célébrations. Pour les Celtes, l'arbre possédait une signification spirituelle profonde, étant considéré comme un symbole de vie et un pont entre les mondes. La célébration de Beltaine, et par extension les pratiques liées à l'arbre de mai, témoignent de cette vision du monde où l'humain, la nature et le divin interagissent en harmonie.</p>
+
+        <p>Beltaine est une fête ancienne célébrée le premier mai, principalement en Irlande et en Écosse, marquant le début de l'été et l'ouverture des pâturages. Le nom de cette fête provient du dieu celte <strong>Bel ou Bil</strong>, et du mot irlandais ancien <em>tene</em>, signifiant « feu ». Beltaine est mentionnée pour la première fois dans un glossaire attribué à Cormac, évêque de Cashel et roi de Munster, décédé en 908. Cormac décrit comment les bétails étaient conduits entre deux feux de Beltaine comme moyen magique de les protéger des maladies avant de les emmener dans les pâturages d'été, une coutume encore observée en Irlande au XIX<sup>e</sup> siècle.</p>
+
+        <p>D'autres festivités incluaient les danses autour du mât de mai et la coupe de branches et fleurs vertes. Selon la tradition, plusieurs événements importants se déroulaient à Beltaine, qui est restée un point focal des traditions populaires et des contes en Irlande, en Écosse et sur l'Île de Man. Comme d'autres peuples celtiques pré-chrétiens, les Irlandais divisaient l'année en deux saisons principales&nbsp;: l'hiver et le début de l'année tombaient le 1<sup>er</sup> novembre (<em>Samain</em>) et le milieu de l'année et l'été le 1<sup>er</sup> mai (<em>Beltaine</em>). Ces deux périodes étaient considérées comme des moments critiques où les limites entre le monde humain et le monde surnaturel étaient temporairement effacées&nbsp;; à la veille de mai, sorcières et fées se promenaient librement, nécessitant des mesures contre leurs enchantements.</p>
+
+        <p>L'annonce faite pour le Goûter Matrimonial d'Écaussinnes du lundi 1<sup>er</sup> juin 1903, jour de Pentecôte, était un appel aux célibataires pour participer à un événement unique conçu pour encourager les rencontres et potentiellement les unions matrimoniales. Cette date marquait la relance d'une tradition ancienne par Marcel Tricot, qui, avec l'aide de son ami, a décidé de remédier à la diminution des mariages dans leur communauté. L'affiche qu'ils ont créée annonçait un « Goûter Monstre » offert par les soixante jeunes filles à marier du centre de la commune, invitant ainsi les jeunes hommes des environs à participer à cet événement dans l'espoir d'assister à de nombreux mariages à venir.</p>
+
+        <p>Cet événement était non seulement une tentative de revitaliser une tradition locale, mais aussi une démarche avant-gardiste visant à promouvoir une certaine émancipation des femmes et à encourager les rencontres matrimoniales dans un contexte convivial et festif. La démarche audacieuse de Marcel Tricot et son annonce ont été à l'origine d'une tradition qui perdure encore aujourd'hui, transformant le Goûter Matrimonial en une célébration reconnue au-delà des frontières.</p>
+      </div>
+
+      <aside>
+        <figure class="portrait-frame">
+          <img src="images/buste-tricot.jpg" alt="Buste de Marcel Tricot" />
+          <p class="portrait-caption">MARCEL TRICOT — INITIATEUR DU GOÛTER, 1903</p>
+        </figure>
+
+        <figure class="plate" style="margin-top:1rem">
+          <span class="plate-stripe">ARBRE DE MAI</span>
+          <div class="plate-frame tone-clean" style="aspect-ratio:1/1"><img src="images/arbre-mai-photo.jpg" alt="Plantation du bouleau, arbre de mai" /></div>
+          <figcaption class="plate-caption">
+            <span class="lbl">LE BOULEAU PLANTÉ</span>
+            Jeunesse, agriculture, récoltes et fertilité.
+          </figcaption>
+        </figure>
+
+        <figure class="plate">
+          <span class="plate-stripe">FEU DE BELTAINE</span>
+          <div class="plate-frame tone-clean" style="aspect-ratio:1/1"><img src="images/beltaine-mariees.jpg" alt="Feu de Beltaine et mariées" /></div>
+          <figcaption class="plate-caption">
+            <span class="lbl">RITUEL DE PURIFICATION</span>
+            Passage par le feu — régénération et renouveau.
+          </figcaption>
+        </figure>
+
+        <figure class="plate">
+          <span class="plate-stripe">SOUVENIR — 1903</span>
+          <div class="plate-frame tone-clean" style="aspect-ratio:5/3"><img src="images/souvenir-fanion.jpg" alt="Souvenir du Goûter Matrimonial" /></div>
+          <figcaption class="plate-caption">
+            <span class="lbl">FANION SOUVENIR</span>
+            « Souvenir du Goûter Matrimonial » — Écaussinnes-Lalaing.
+          </figcaption>
+        </figure>
+
+        <figure class="plate">
+          <span class="plate-stripe">ART NOUVEAU</span>
+          <div class="plate-frame tone-clean" style="aspect-ratio:5/4"><img src="images/gouter-art-nouveau2.jpg" alt="Affiche Art Nouveau du Goûter Matrimonial" /></div>
+          <figcaption class="plate-caption">
+            <span class="lbl">121<sup>e</sup> GOÛTER MATRIMONIAL</span>
+            Illustration commémorative.
+          </figcaption>
+        </figure>
+      </aside>
+    </div>
+
+    <div class="folio-foot">
+      <span>LA SENNETTE — N° 5'</span>
+      <span class="page-num">VII</span>
+      <span>BIBLIOGRAPHIE — PAGE VIII</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOLIO 8 — Bibliographie · Louis Boutan
+     ============================================================ -->
+<section class="folio paper paper-edge" id="folio-8" data-screen-label="Folio 08 — Boutan, photographie sous-marine">
+  <div class="folio-paper">
+
+    <div class="folio-mast-thin">
+      <span>VOL. III · N° 5'</span>
+      <span>BIBLIOGRAPHIE</span>
+      <span>LUNDI 08 JUIN 1908</span>
+    </div>
+    <header class="folio-masthead">
+      <h1 class="folio-mh-title masthead-font">Appareil photo aquatique</h1>
+      <p class="folio-mh-sub">Louis Boutan et les premiers clichés sous-marins de l'histoire.</p>
+    </header>
+    <div class="folio-mast-bottom">
+      <span class="pill">TECHNIQUE</span>
+      <span>BOÎTE ÉTANCHE — TYPE DÉTECTIVE · 6 PLAQUES 9×12 CM</span>
+      <span class="pill">PAGE VIII</span>
+    </div>
+
+    <p class="h-kicker reveal">UNE PROUESSE TECHNIQUE NOTABLE</p>
+    <h2 class="h-1 reveal">L'histoire des débuts de la photographie sous-marine.</h2>
+
+    <div class="grid-12 reveal" style="margin-top:1.4rem">
+      <div class="cols-2 col-block">
+        <p>L'histoire des débuts de la photographie sous-marine, telle que décrite par <strong>Louis Boutan</strong>, illustre un moment fascinant d'innovation technique et de détermination scientifique. Louis Boutan, biologiste, avec l'aide de son frère Auguste, a conçu et construit le premier appareil photographique sous-marin capable de fonctionner à une profondeur significative, marquant ainsi un tournant dans la capacité humaine à documenter visuellement le monde sous-marin.</p>
+
+        <p>La conception de cet appareil était révolutionnaire pour l'époque. Le boîtier étanche permettait d'utiliser un appareil photographique de type <em>Détective</em> à <strong>6 plaques de 9&nbsp;cm × 12&nbsp;cm</strong> dans l'eau sans altérer son fonctionnement habituel. Cet appareil devait être capable de capter des images sans mise au point préalable pour des objets situés à plus de 3 à 4 mètres de distance de l'objectif, une prouesse technique notable.</p>
+
+        <p>La description de l'appareil par Boutan souligne l'ingéniosité nécessaire pour surmonter les défis inhérents à la photographie sous-marine. L'appareil était enfermé dans une boîte étanche composée de lames de cuivre, avec plusieurs orifices équipés de verre pour permettre à la lumière d'atteindre la plaque sensible. Un « <strong>ballon de compensation</strong> » était également ajouté pour équilibrer la pression de l'eau, une caractéristique essentielle pour permettre à l'appareil de fonctionner correctement à différentes profondeurs.</p>
+
+        <p class="pullquote">« Les premiers clichés de 1893, obtenus par Boutan, étaient souvent flous et manquaient de profondeur de champ — un problème qu'il attribuait aux limitations de l'appareil lui-même plutôt qu'à la méthode d'utilisation. »</p>
+
+        <p>Cependant, les défis étaient nombreux. La nécessité de longs temps de pose, parfois jusqu'à une <strong>demi-heure</strong>, limitait considérablement les sujets photographiques et exigeait une préparation minutieuse ainsi qu'une stabilité exceptionnelle de l'appareil.</p>
+
+        <p>Malgré ces limitations, le travail de Louis Boutan représente une étape cruciale dans l'histoire de la photographie sous-marine. Il a non seulement démontré la faisabilité de capturer des images sous l'eau, mais a également mis en évidence les défis techniques à surmonter pour améliorer la qualité et la praticité de cette forme de photographie. Son expérience a pavé la voie aux innovations futures qui ont permis de capturer le monde sous-marin avec une clarté et une précision sans précédent. Il invente également un procédé de <em>flash sous-marin</em> qui lui permet de faire des « instantanés » sous l'eau.</p>
+
+        <figure class="plate in-column">
+          <span class="plate-stripe">PREMIER CLICHÉ — 1893</span>
+          <div class="plate-frame tone-clean" style="aspect-ratio:4/5"><img src="images/boutan-cliche.jpg" alt="Premier cliché subaquatique de Boutan, 1893" /></div>
+          <figcaption class="plate-caption">
+            <span class="lbl">TOUTE PREMIÈRE PHOTOGRAPHIE SUBAQUATIQUE</span>
+            Cliché effectué avec le caisson étanche amphibie d'Auguste Boutan — boîte étanche de type <em>Détective</em> à 6 plaques.
+          </figcaption>
+        </figure>
+
+        <p style="margin-top:1.2rem">Cet appareil, premier du genre, ouvrit la voie à toute la documentation visuelle du monde sous-marin, et c'est armé d'un caisson de la même famille que les explorateurs de Scoufflény tentèrent — sans succès, hélas — de capturer une image nette du Kraken nain de Humboldt.</p>
+      </div>
+
+      <aside>
+        <figure class="plate">
+          <span class="plate-stripe">GRAVURE — APPAREIL</span>
+          <div class="plate-frame tone-clean" style="aspect-ratio:1/1"><img src="images/gravure-appareil.jpg" alt="Appareil photo sous-marin, gravure" /></div>
+          <figcaption class="plate-caption">
+            <span class="lbl">FIG. 1 — APPAREIL PHOTO-SOUS-MARIN</span>
+            B&nbsp;: bouton — D&nbsp;: déclenchement — OB&nbsp;: objectif — O&nbsp;: obturateur — V&nbsp;: viseur.
+          </figcaption>
+        </figure>
+
+        <figure class="plate">
+          <span class="plate-stripe">AUTOPORTRAIT SUBAQUATIQUE</span>
+          <div class="plate-frame tone-clean" style="aspect-ratio:4/3"><img src="images/boutan-autoportrait.jpg" alt="Autoportrait sous-marin de Boutan" /></div>
+          <figcaption class="plate-caption">
+            <span class="lbl">L. BOUTAN — SOUS L'EAU</span>
+            Autoportrait subaquatique, longue pose.
+          </figcaption>
+        </figure>
+
+        <figure class="portrait-frame">
+          <img src="images/portrait-jeune.jpg" alt="Portrait d'un membre de l'équipe" />
+          <p class="portrait-caption">LOUIS BOUTAN — BIOLOGISTE</p>
+        </figure>
+
+        <div class="notice" style="margin-top:1rem">
+          <div class="label">ANNONCE — BASE AQUATIQUE</div>
+          <div class="name">À la Base de Scoufflény</div>
+          <div class="body">Après une bonne plongée, venez goûter aux plaisirs gourmands où hamburger et gaufre maison se rencontrent.</div>
+          <div style="margin-top:.8rem">
+            <div class="plate-frame tone-clean" style="aspect-ratio:5/4"><img src="images/burger-lac.jpg" alt="Hamburger et bière au bord du lac" /></div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <div class="folio-foot">
+      <span>LA SENNETTE — N° 5'</span>
+      <span class="page-num">VIII</span>
+      <span>FIN DE L'ÉDITION</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     EPILOGUE
+     ============================================================ -->
+<section id="epilogue" data-screen-label="Épilogue — Le Mystère demeure">
+  <div class="bubbles" id="bubbles-ep"></div>
+  <div class="ep-glow"></div>
+
+  <svg class="ep-silhouette" viewBox="0 0 1200 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g fill="#000">
+      <ellipse cx="600" cy="100" rx="160" ry="90"/>
+      <path d="M 470 90 Q 600 -10 730 90 Q 600 40 470 90 Z"/>
+      <path d="M 500 160 Q 440 240 340 320 Q 400 280 430 200 Q 470 180 500 160 Z"/>
+      <path d="M 540 180 Q 500 280 400 380 Q 480 320 510 240 Q 530 200 540 180 Z"/>
+      <path d="M 580 185 Q 570 300 530 400 Q 580 330 580 240 Z"/>
+      <path d="M 620 185 Q 630 300 670 400 Q 620 330 620 240 Z"/>
+      <path d="M 660 180 Q 700 280 800 380 Q 720 320 690 240 Q 670 200 660 180 Z"/>
+      <path d="M 700 160 Q 760 240 860 320 Q 800 280 770 200 Q 730 180 700 160 Z"/>
+    </g>
+  </svg>
+
+  <div class="ep-content">
+    <div class="ep-eyebrow">— ÉPILOGUE —</div>
+    <h2 class="ep-title">Le mystère<br/><em>demeure.</em></h2>
+    <p class="ep-text">Aucun spécimen n'a été ramené. Aucune classification n'a été retenue. Sous les calcaires d'Écaussinnes, dans la nappe phréatique de Scoufflény, la créature glisse encore — silencieuse, indifférente, immémoriale.</p>
+    <p class="ep-text" style="margin-top:1.4rem;font-size:18px;color:rgba(220,208,176,.55)">Elle attend.</p>
+    <a class="ep-cta" href="#hero">L'EXPÉDITION CONTINUE</a>
+  </div>
+
+  <div class="ep-foot">LA SENNETTE · N° 5' · LUNDI 08 JUIN 1908 · ÉCAUSSINNES — LALAING · RÉDACTEUR MAKAEL TIGESTONIG</div>
+</section>
+
+<script>
+  // ===== Bubbles =====
+  function makeBubbles(id, count, opts){
+    const c = document.getElementById(id); if(!c) return;
+    for(let i=0;i<count;i++){
+      const b = document.createElement('div'); b.className='bubble';
+      const size = Math.random()*(opts.maxSize-opts.minSize)+opts.minSize;
+      b.style.width=size+'px'; b.style.height=size+'px';
+      b.style.left=(Math.random()*100)+'%';
+      b.style.setProperty('--drift',(Math.random()*60-30)+'px');
+      const dur=Math.random()*(opts.maxDur-opts.minDur)+opts.minDur;
+      b.style.animationDuration=dur+'s';
+      b.style.animationDelay=(-Math.random()*dur)+'s';
+      b.style.opacity=Math.random()*.5+.3;
+      c.appendChild(b);
+    }
+  }
+  makeBubbles('bubbles-hero',28,{minSize:4,maxSize:14,minDur:12,maxDur:24});
+  makeBubbles('bubbles-ep',22,{minSize:3,maxSize:11,minDur:14,maxDur:28});
+
+  // ===== Reveal on scroll =====
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }});
+  },{threshold:.08});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
